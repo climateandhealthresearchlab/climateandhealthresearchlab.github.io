@@ -44,30 +44,32 @@
 
     /* ── Language Switcher ── */
     .lang-switcher {
-      position: relative;
-      display: inline-block;
-      margin-left: 12px;
-      vertical-align: middle;
+      position: fixed;
+      top: 58px;
+      right: 20px;
+      z-index: 9999;
     }
     .lang-btn {
       display: flex;
       align-items: center;
       gap: 6px;
-      background: rgba(255,255,255,0.18);
-      border: 1.5px solid rgba(255,255,255,0.55);
+      background: var(--secondary-bg);
+      border: 1px solid #ccc;
       border-radius: 20px;
-      padding: 4px 10px 4px 7px;
+      padding: 6px 12px 6px 8px;
       cursor: pointer;
-      color: #fff;
+      color: var(--text-color);
       font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      transition: background 0.18s, border-color 0.18s;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      transition: background 0.18s;
       white-space: nowrap;
     }
     .lang-btn:hover {
-      background: rgba(255,255,255,0.30);
-      border-color: rgba(255,255,255,0.8);
+      background: #e8e8e8;
+    }
+    [data-theme="dark"] .lang-btn:hover {
+      background: #3a3a3a;
     }
     .lang-btn .flag {
       width: 22px;
@@ -92,8 +94,9 @@
       display: none;
       position: absolute;
       top: calc(100% + 10px);
-      left: 50%;
-      transform: translateX(-50%);
+      right: 0;
+      left: auto;
+      transform: none;
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 8px 28px rgba(0,0,0,0.18);
@@ -104,16 +107,17 @@
       animation: dropIn 0.18s ease;
     }
     @keyframes dropIn {
-      from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
-      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
     /* Arrow */
     .lang-dropdown::before {
       content: '';
       position: absolute;
       top: -7px;
-      left: 50%;
-      transform: translateX(-50%);
+      right: 18px;
+      left: auto;
+      transform: none;
       border-left: 8px solid transparent;
       border-right: 8px solid transparent;
       border-bottom: 8px solid #fff;
@@ -159,22 +163,39 @@
       clear: both;
     }
 
-    /* Inject lang switcher into Bootstrap navbar */
-    .navbar-inner .container {
-      display: flex;
-      align-items: center;
-    }
-    .nav.navbar-right-extras {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-    }
+
   </style>
 </head>
 <body>
 <button class="theme-toggle" id="themeToggle">
   <span id="themeIcon">🌙</span> Dark
 </button>
+
+<!-- ── Language Switcher (fixed, under theme toggle) ── -->
+<div class="lang-switcher" id="langSwitcher">
+  <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+    <img class="flag" src="https://flagcdn.com/w40/us.png" alt="EN" id="activeFlagImg">
+    <span id="activeLangCode">EN</span>
+    <span class="caret-icon">▼</span>
+  </button>
+  <div class="lang-dropdown" id="langDropdown" role="menu">
+    <a class="lang-option active" href="#" data-lang="en" data-code="EN" data-flag="https://flagcdn.com/w40/us.png" role="menuitem">
+      <img class="flag" src="https://flagcdn.com/w40/us.png" alt=""> English
+    </a>
+    <a class="lang-option" href="#" data-lang="fr" data-code="FR" data-flag="https://flagcdn.com/w40/fr.png" role="menuitem">
+      <img class="flag" src="https://flagcdn.com/w40/fr.png" alt=""> Français
+    </a>
+    <a class="lang-option" href="#" data-lang="es" data-code="ES" data-flag="https://flagcdn.com/w40/es.png" role="menuitem">
+      <img class="flag" src="https://flagcdn.com/w40/es.png" alt=""> Español
+    </a>
+    <a class="lang-option" href="#" data-lang="de" data-code="DE" data-flag="https://flagcdn.com/w40/de.png" role="menuitem">
+      <img class="flag" src="https://flagcdn.com/w40/de.png" alt=""> Deutsch
+    </a>
+    <a class="lang-option" href="#" data-lang="zh-CN" data-code="中文" data-flag="https://flagcdn.com/w40/cn.png" role="menuitem">
+      <img class="flag" src="https://flagcdn.com/w40/cn.png" alt=""> 中文
+    </a>
+  </div>
+</div>
 
 <div class="container">
   <!-- HEADER -->
@@ -200,39 +221,6 @@
             <li><a href="join.html">Join Us</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
-
-          <!-- ── Language Switcher (lives in navbar) ── -->
-          <ul class="nav navbar-right-extras">
-            <li>
-              <div class="lang-switcher" id="langSwitcher">
-                <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
-                  <!-- Flag rendered as inline SVG emoji via img or via flagcdn -->
-                  <img class="flag" src="https://flagcdn.com/w40/us.png" alt="EN" id="activeFlagImg">
-                  <span id="activeLangCode">EN</span>
-                  <span class="caret-icon">▼</span>
-                </button>
-                <div class="lang-dropdown" id="langDropdown" role="menu">
-                  <a class="lang-option active" href="#" data-lang="en" data-code="EN" data-flag="https://flagcdn.com/w40/us.png" role="menuitem">
-                    <img class="flag" src="https://flagcdn.com/w40/us.png" alt=""> English
-                  </a>
-                  <a class="lang-option" href="#" data-lang="fr" data-code="FR" data-flag="https://flagcdn.com/w40/fr.png" role="menuitem">
-                    <img class="flag" src="https://flagcdn.com/w40/fr.png" alt=""> Français
-                  </a>
-                  <a class="lang-option" href="#" data-lang="es" data-code="ES" data-flag="https://flagcdn.com/w40/es.png" role="menuitem">
-                    <img class="flag" src="https://flagcdn.com/w40/es.png" alt=""> Español
-                  </a>
-                  <a class="lang-option" href="#" data-lang="de" data-code="DE" data-flag="https://flagcdn.com/w40/de.png" role="menuitem">
-                    <img class="flag" src="https://flagcdn.com/w40/de.png" alt=""> Deutsch
-                  </a>
-                  <a class="lang-option" href="#" data-lang="zh-CN" data-code="中文" data-flag="https://flagcdn.com/w40/cn.png" role="menuitem">
-                    <img class="flag" src="https://flagcdn.com/w40/cn.png" alt=""> 中文
-                  </a>
-                </div>
-              </div>
-            </li>
-          </ul>
-          <!-- ── End Language Switcher ── -->
-
         </div>
       </div>
     </div>
@@ -351,7 +339,7 @@
         <p><b>Office Hours:</b> Monday–Friday (8.00am – 5.00pm)</p>
         <p><b>Phone:</b> (+233) 20-087-6117</p>
         <p><b>Cell:</b> (+233) 55-056-3536</p>
-        <a href="mailto:eyilimoan48@gmail.com">Email</a>
+        <a href="/cdn-cgi/l/email-protection#abced2c2c7c2c6c4cac59f93ebccc6cac2c785c8c4c6">Email</a>
       </div>
       <div class="span2">
         <img src="images/lablogo.png" alt="research-lab-logo">
@@ -371,7 +359,7 @@
 </footer>
 
 <!-- Scripts -->
-<script src="js/jquery-1.9.1.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/jquery-1.9.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script>$('#main-carousel').carousel();</script>
 
@@ -409,7 +397,19 @@
     langBtn.setAttribute('aria-expanded', 'false');
   });
 
-  // Language selection
+  // Restore active language from cookie on page load
+  const langCookie = document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith('googtrans='));
+  if (langCookie) {
+    const parts = langCookie.split('/');
+    const activeLang = parts[parts.length - 1];
+    const matchedOpt = document.querySelector(`.lang-option[data-lang="${activeLang}"]`);
+    if (matchedOpt && activeLang !== 'en') {
+      activeFlagImg.src = matchedOpt.dataset.flag;
+      activeLangCode.textContent = matchedOpt.dataset.code;
+      options.forEach(o => o.classList.remove('active'));
+      matchedOpt.classList.add('active');
+    }
+  }
   options.forEach(function(opt) {
     opt.addEventListener('click', function(e) {
       e.preventDefault();
@@ -438,17 +438,18 @@
   });
 
   function triggerGoogleTranslate(lang) {
-    // Find the Google Translate combo box and change it
-    const tryTranslate = function() {
-      const select = document.querySelector('.goog-te-combo');
-      if (select) {
-        select.value = lang;
-        select.dispatchEvent(new Event('change'));
-      } else {
-        setTimeout(tryTranslate, 300);
-      }
-    };
-    tryTranslate();
+    if (lang === 'en') {
+      // Reset to English: remove the Google Translate cookie and reload
+      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + location.hostname;
+      location.reload();
+      return;
+    }
+    // Set cookie for Google Translate and reload
+    const cookieVal = '/en/' + lang;
+    document.cookie = 'googtrans=' + cookieVal + '; path=/';
+    document.cookie = 'googtrans=' + cookieVal + '; path=/; domain=' + location.hostname;
+    location.reload();
   }
 </script>
 
@@ -469,10 +470,3 @@
       toggle.innerHTML = '<span id="themeIcon">🌙</span> Dark';
     } else {
       html.setAttribute('data-theme', 'dark');
-      localStorage.setItem('theme', 'dark');
-      toggle.innerHTML = '<span id="themeIcon">☀️</span> Light';
-    }
-  });
-</script>
-</body>
-</html>
