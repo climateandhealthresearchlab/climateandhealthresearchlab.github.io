@@ -1,23 +1,178 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
    <head>
       <meta charset="utf-8">
-      <title>Research</title>
+      <title>Research - Climate And Health Research Lab</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" content="Research Lab, Home,Kwame Nkrumah University of Science and Technology">
+      <meta name="description" content="Research Lab, Home, Kwame Nkrumah University of Science and Technology">
       <meta name="author" content="">
       <!-- Le styles -->
       <link href="css/bootstrap.min.css" rel="stylesheet">
       <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
       <link href="css/theme.css" rel="stylesheet">
+
+      <style>
+        :root {
+          --bg-color: #ffffff;
+          --text-color: #333333;
+          --secondary-bg: #f5f5f5;
+        }
+        [data-theme="dark"] {
+          --bg-color: #1a1a1a;
+          --text-color: #e0e0e0;
+          --secondary-bg: #2d2d2d;
+        }
+        body {
+          background-color: var(--bg-color);
+          color: var(--text-color);
+          transition: background-color 0.3s, color 0.3s;
+          top: 0 !important;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: var(--secondary-bg);
+          border: 1px solid #ccc;
+          border-radius: 20px;
+          padding: 6px 12px;
+          cursor: pointer;
+          font-size: 13px;
+          z-index: 9999;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+          color: var(--text-color);
+        }
+        .theme-toggle:hover { transform: scale(1.05); }
+
+        /* ── Language Switcher ── */
+        .lang-switcher {
+          position: fixed;
+          top: 58px;
+          right: 20px;
+          z-index: 9999;
+        }
+        .lang-btn {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          background: var(--secondary-bg);
+          border: 1px solid #ccc;
+          border-radius: 20px;
+          padding: 6px 12px 6px 8px;
+          cursor: pointer;
+          color: var(--text-color);
+          font-size: 13px;
+          font-weight: 500;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+          transition: background 0.18s;
+          white-space: nowrap;
+        }
+        .lang-btn:hover { background: #e8e8e8; }
+        [data-theme="dark"] .lang-btn:hover { background: #3a3a3a; }
+        .lang-btn .flag {
+          width: 22px; height: 16px;
+          border-radius: 3px; object-fit: cover;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+          flex-shrink: 0;
+        }
+        .lang-btn .caret-icon {
+          font-size: 10px; opacity: 0.85;
+          margin-left: 2px; transition: transform 0.2s;
+        }
+        .lang-switcher.open .caret-icon { transform: rotate(180deg); }
+
+        .lang-dropdown {
+          display: none;
+          position: absolute;
+          top: calc(100% + 10px);
+          right: 0; left: auto; transform: none;
+          background: #fff;
+          border-radius: 12px;
+          box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+          min-width: 160px;
+          z-index: 9999;
+          overflow: hidden;
+          padding: 6px 0;
+          animation: dropIn 0.18s ease;
+        }
+        @keyframes dropIn {
+          from { opacity: 0; transform: translateY(-6px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .lang-dropdown::before {
+          content: '';
+          position: absolute;
+          top: -7px; right: 18px; left: auto; transform: none;
+          border-left: 8px solid transparent;
+          border-right: 8px solid transparent;
+          border-bottom: 8px solid #fff;
+          filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.08));
+        }
+        .lang-switcher.open .lang-dropdown { display: block; }
+        .lang-option {
+          display: flex; align-items: center; gap: 10px;
+          padding: 9px 18px; cursor: pointer;
+          font-size: 14px; color: #333; font-weight: 500;
+          transition: background 0.14s; text-decoration: none;
+        }
+        .lang-option:hover { background: #f3f3f3; }
+        .lang-option.active { background: #edf7ee; color: #2e7d32; font-weight: 700; }
+        .lang-option .flag {
+          width: 26px; height: 18px;
+          border-radius: 3px; object-fit: cover;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.2); flex-shrink: 0;
+        }
+
+        /* Hide Google Translate banner */
+        .skiptranslate iframe { display: none !important; }
+        .goog-te-banner-frame { display: none !important; }
+      </style>
    </head>
+
    <body>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggle">
+         <span id="themeIcon">🌙</span> Dark
+      </button>
+
+      <!-- Language Switcher -->
+      <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+          <img class="flag" src="https://flagcdn.com/w40/us.png" alt="EN" id="activeFlagImg">
+          <span id="activeLangCode">EN</span>
+          <span class="caret-icon">▼</span>
+        </button>
+        <div class="lang-dropdown" id="langDropdown" role="menu">
+          <a class="lang-option active" href="#" data-lang="en" data-code="EN" data-flag="https://flagcdn.com/w40/us.png" role="menuitem">
+            <img class="flag" src="https://flagcdn.com/w40/us.png" alt=""> English
+          </a>
+          <a class="lang-option" href="#" data-lang="fr" data-code="FR" data-flag="https://flagcdn.com/w40/fr.png" role="menuitem">
+            <img class="flag" src="https://flagcdn.com/w40/fr.png" alt=""> Français
+          </a>
+          <a class="lang-option" href="#" data-lang="es" data-code="ES" data-flag="https://flagcdn.com/w40/es.png" role="menuitem">
+            <img class="flag" src="https://flagcdn.com/w40/es.png" alt=""> Español
+          </a>
+          <a class="lang-option" href="#" data-lang="de" data-code="DE" data-flag="https://flagcdn.com/w40/de.png" role="menuitem">
+            <img class="flag" src="https://flagcdn.com/w40/de.png" alt=""> Deutsch
+          </a>
+          <a class="lang-option" href="#" data-lang="zh-CN" data-code="中文" data-flag="https://flagcdn.com/w40/cn.png" role="menuitem">
+            <img class="flag" src="https://flagcdn.com/w40/cn.png" alt=""> 中文
+          </a>
+        </div>
+      </div>
+
+      <!-- Google Translate (hidden engine) -->
+      <div id="google_translate_element" style="display:none;"></div>
+
       <div class="container">
          <header id="overview" style="text-align:center; margin-bottom: 20px;">
-    <img src="images/heading.jpg" 
-         alt="Climate And Health Research Lab Banner" 
-         style="width:100%; height:auto;">
-</header>
+            <img src="images/heading.jpg"
+                 alt="Climate And Health Research Lab Banner"
+                 style="width:100%; height:auto;">
+         </header>
+
          <div class="masthead">
             <div class="navbar">
                <div class="navbar-inner">
@@ -37,7 +192,9 @@
                </div>
             </div>
          </div>
+
          <hr>
+
          <div class="row-fluid">
             <div class="span3 bs-docs-sidebar" id="navparent">
                <ul class="nav nav-list bs-docs-sidenav" data-spy="affix" data-offset-top="200" data-offset-bottom="260">
@@ -47,22 +204,20 @@
                   <li><a class="subhead" href="#QuamIdLeo"> Malaria Transmission in Africa </a></li>
                   <li><a class="subhead" href="#Ullamcorper"> Air Quality </a></li>
                   <li><a class="subhead" href="#VECTRI">Vectri Model Structural Layout</a></li>
-                  <!-- <li><a href="#Facilisis">Facilisis</a></li>
-                  <li><a class="subhead" href="#Volutpat"> Volutpat </a></li>
-                  <li><a class="subhead" href="#ElementumTempus"> Elementum Tempus </a></li>
-                  <li><a class="subhead" href="#FacilisisMagna"> Facilisis Magna </a></li> -->
                </ul>
             </div>
+
             <div class="span8 offset1">
                <section id="statemet">
                   <div class="page-header">
                      <h3>Our Research</h3>
                      <hr>
-                     <p>The Climate and Health Research Lab is dedicated to advancing knowledge on the impact of climate change on human health, animal welfare, and environmental sustainability. 
+                     <p>The Climate and Health Research Lab is dedicated to advancing knowledge on the impact of climate change on human health, animal welfare, and environmental sustainability.
                         Our research initiatives focus on understanding the complex interplay between climate, ecosystems, and public health, aiming to drive positive change and improve global well-being.
                      </p>
                   </div>
                </section>
+
                <section id="nano">
                   <div class="page-header">
                      <h3>Below are some of impactful research done in our Lab!</h3>
@@ -74,11 +229,12 @@
                            <br/>
                            <img src="images/journal.pclm.0000023.g005 (2).PNG" class="float-right" alt="Penatibus"/>
                            <p>
-                             The figure displays a side-by-side comparison of the old and new agro-climatic zone (ACZ) maps of Ghana, as proposed in a 2023 study published in PLOS Climate that revisits and updates the country's climatic classifications to better reflect impacts of climate change and variability. 
+                             The figure displays a side-by-side comparison of the old and new agro-climatic zone (ACZ) maps of Ghana, as proposed in a 2023 study published in PLOS Climate that revisits and updates the country's climatic classifications to better reflect impacts of climate change and variability.
                               The old map, based on the Ghana Meteorological Agency's 1960s demarcation, simplifies the country into four broad zones: a vast northern "North" savannah region, a central "Transition" band, a southern "Forest" area, and a limited "Coast" near Accra.
+                           </p>
                            <p>
-                              The new map, derived from analysis of 30-year rainfall and temperature data, introduces a more dis-aggregated five-zone classification: "Sudan Savannah" in the far north, an expanded "Guinea Savannah" extending southward, a significantly reduced "Transition Zone" (largely encroached upon by Guinea Savannah, especially in the southeast), a shrunken "Forest" zone with a northwestward shift, and an broadened "Coast" now spanning the entire Gulf of Guinea coastline. 
-                              Both maps share the same geographic outline of Ghana, with latitude (5° to 11° N) and longitude (-3° to 1°) coordinates, and mark key cities with red dots for reference. This updated mapping highlights clear evidence of climatic shifts, including southerly expansion of drier savannah zones and alterations with implications for agriculture, health, forecasting, and disaster management. 
+                              The new map, derived from analysis of 30-year rainfall and temperature data, introduces a more dis-aggregated five-zone classification: "Sudan Savannah" in the far north, an expanded "Guinea Savannah" extending southward, a significantly reduced "Transition Zone" (largely encroached upon by Guinea Savannah, especially in the southeast), a shrunken "Forest" zone with a northwestward shift, and an broadened "Coast" now spanning the entire Gulf of Guinea coastline.
+                              Both maps share the same geographic outline of Ghana, with latitude (5° to 11° N) and longitude (-3° to 1°) coordinates, and mark key cities with red dots for reference. This updated mapping highlights clear evidence of climatic shifts, including southerly expansion of drier savannah zones and alterations with implications for agriculture, health, forecasting, and disaster management.
                            </p>
                         </section>
                         <hr>
@@ -87,7 +243,7 @@
                            <br/>
                            <img src="images/Monthly EIR.jpeg" class="float-right" alt="Quam Id Leo"/>
                            <p>
-                              The geographical locations of extracted EIRm in Sub-Saharan Africa. The colored circles show the maximum EIRm value recorded for the location. 
+                              The geographical locations of extracted EIRm in Sub-Saharan Africa. The colored circles show the maximum EIRm value recorded for the location.
                               The proximity of many of the locations are very close and hence cannot be explicitly resolved on the map. The blue lines show the boundaries of the sub-regions (Sahel, Guinea, WA and EA).
                            </p>
                         </section>
@@ -97,7 +253,7 @@
                            <br/>
                            <img src="images/air.jpeg" class="float-right" alt="Ullamcorper"/>
                            <p>
-                              Figure 8 illustrates the AQI trends at the monitored schools from late 2022 to 2023. The data reveal clear seasonal and daily patterns across the sites. 
+                              Figure 8 illustrates the AQI trends at the monitored schools from late 2022 to 2023. The data reveal clear seasonal and daily patterns across the sites.
                               Based on U.S. EPA standards, AQI values often peaked during the dry season, reaching levels in the Moderate, Unhealthy for Sensitive Groups, and sometimes Unhealthy categories.
                            </p>
                         </section>
@@ -107,115 +263,20 @@
                            <br/>
                            <img src="images/vectri (1).jpg" class="float-right" alt="Ullamcorper"/>
                            <p>
-                              The structural layout of VECTRI model. The top row shows the larvae status divided into a series of bins representing the fractional development state. 
-                              The ’X’ in each bin represents the density of larvae in a specific fractional growth stage. 
-                              The middle block represents the vector state in two dimensions: the egg development within the female and the infective state. The lower row models the host infective state. 
-                              The curved arrows represent the progression direction of the larvae, vector and host state, while the straight red arrows mark the parasite transmission pathways between host and vector. Source:Tompkins and Ermert (2013)
+                              The structural layout of VECTRI model. The top row shows the larvae status divided into a series of bins representing the fractional development state.
+                              The 'X' in each bin represents the density of larvae in a specific fractional growth stage.
+                              The middle block represents the vector state in two dimensions: the egg development within the female and the infective state. The lower row models the host infective state.
+                              The curved arrows represent the progression direction of the larvae, vector and host state, while the straight red arrows mark the parasite transmission pathways between host and vector. Source: Tompkins and Ermert (2013)
                            </p>
-                        </section>
-                     </div>
-                  </div>
-               <!-- </section>
-               <hr>
-               <section id="Facilisis">
-                  <div class="page-header">
-                     <h3>Facilisis</h3>
-                  </div>
-                  <div class="row-fluid">
-                     <div class="span12">
-                        <section id="Volutpat">
-                           <h4>Volutpat</h4>
-                           <br/>
-                           <img src="images/solar-2.jpg" class="float-right" alt="Volutpat"/>
-                           <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                              tempor incididunt ut labore et dolore magna aliqua. Ultricies mi quis 
-                              hendrerit dolor. Non odio euismod lacinia at quis risus sed vulputate odio. 
-                              Amet volutpat consequat mauris nunc congue nisi. Netus et malesuada fames 
-                              ac turpis egestas maecenas. Mauris in aliquam sem fringilla ut morbi tincidunt. 
-                              Arcu bibendum at varius vel. Vel eros donec ac odio tempor. Nec ullamcorper 
-                              sit amet risus nullam eget. Volutpat blandit aliquam etiam erat velit 
-                              scelerisque in dictum. Eu facilisis sed odio morbi quis. Justo eget magna 
-                              fermentum iaculis eu. Orci eu lobortis elementum nibh tellus molestie nunc non 
-                              blandit. Bibendum arcu vitae elementum curabitur vitae nunc sed. Iaculis eu non 
-                              diam phasellus vestibulum lorem. Auctor augue mauris augue neque gravida. Sit 
-                              amet purus gravida quis blandit. In nulla posuere sollicitudin aliquam ultrices. 
-                           </p>
-                           <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                              incididunt ut labore et dolore magna aliqua. Nisi quis eleifend quam adipiscing 
-                              vitae proin. Metus vulputate eu scelerisque felis imperdiet proin fermentum. 
-                              Consectetur adipiscing elit duis tristique sollicitudin. Faucibus ornare 
-                              suspendisse sed nisi lacus sed viverra. Odio tempor orci dapibus ultrices in 
-                              iaculis nunc sed augue. Laoreet non curabitur gravida arcu ac tortor dignissim 
-                              convallis aenean. Posuere sollicitudin aliquam ultrices sagittis orci. Tellus 
-                              orci ac auctor augue. Tristique risus nec feugiat in. In est ante in nibh mauris. 
-                              Neque gravida in fermentum et sollicitudin ac. Commodo viverra maecenas accumsan 
-                              lacus vel facilisis volutpat. Aliquam malesuada bibendum arcu vitae elementum.
-                           </p>
-                        </section>
-                        <hr>
-                        <section id="ElementumTempus">
-                           <h4>Elementum Tempus</h4>
-                           <br/>
-                           <img src="images/energy.jpg" class="float-right" alt="Elementum Tempus"/>
-                           <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                              incididunt ut labore et dolore magna aliqua. Quisque sagittis purus sit amet 
-                              volutpat consequat mauris nunc congue. Arcu ac tortor dignissim convallis aenean. 
-                              Etiam non quam lacus suspendisse faucibus interdum posuere lorem ipsum. Lorem 
-                              mollis aliquam ut porttitor leo a diam sollicitudin. Convallis aenean et tortor 
-                              at risus viverra adipiscing at. Nibh cras pulvinar mattis nunc sed blandit libero. 
-                              Venenatis a condimentum vitae sapien pellentesque. Diam maecenas ultricies mi eget 
-                              mauris. Facilisis volutpat est velit egestas dui id. Ut ornare lectus sit amet est 
-                              placerat in egestas erat. Vel elit scelerisque mauris pellentesque pulvinar 
-                              pellentesque habitant.
-                           </p>
-                           <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                              incididunt ut labore et dolore magna aliqua. Donec ac odio tempor orci dapibus 
-                              ultrices. Venenatis a condimentum vitae sapien. Ante in nibh mauris cursus mattis 
-                              molestie a iaculis at. Egestas quis ipsum suspendisse ultrices gravida dictum fusce. 
-                              Pellentesque elit eget gravida cum. Duis ultricies lacus sed turpis tincidunt id 
-                              aliquet risus. Aliquet risus feugiat in ante metus dictum at. Id leo in vitae turpis. 
-                              Nec nam aliquam sem et tortor consequat id porta nibh. Sagittis eu volutpat odio 
-                              facilisis mauris sit amet massa. Facilisis mauris sit amet massa. Amet risus nullam 
-                              eget felis eget nunc lobortis mattis. Ut sem nulla pharetra diam sit. Mattis molestie 
-                              a iaculis at erat pellentesque adipiscing commodo. Enim neque volutpat ac tincidunt 
-                              vitae semper quis lectus nulla. Lectus sit amet est placerat in egestas erat. Aliquet 
-                              nibh praesent tristique magna sit amet purus gravida. At volutpat diam ut venenatis. 
-                              Nibh ipsum consequat nisl vel pretium lectus.
-                           </p>
-                        </section>
-                        <hr>
-                        <section id="FacilisisMagna">
-                           <h4>Facilisis Magna</h4>
-                           <br/>
-                           <ol class="resources">
-                              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                                 incididunt ut labore et dolore magna aliqua. p. 413-417, 2010.
-                              </li>
-                              <li>Sed ullamcorper morbi tincidunt ornare massa eget egestas. Suscipit tellus mauris 
-                                 a diam. Facilisis magna etiam tempor orci eu lobortis elementum nibh tellus.  
-                              </li>
-                              <li>Tellus molestie nunc non blandit massa enim nec dui. Eget duis at tellus at urna 
-                                 condimentum mattis pellentesque id. At urna condimentum mattis pellentesque id nibh 
-                                 tortor. Placerat duis ultricies lacus sed turpis tincidunt id aliquet risus. 
-                              </li>
-                              <li>Laoreet non curabitur gravida arcu ac. Ultricies tristique nulla aliquet enim. Auctor 
-                                 elit sed vulputate mi. Pellentesque diam volutpat commodo sed egestas egestas fringilla. 
-                                 Eleifend donec pretium vulputate sapien nec sagittis. 38(5), p. 397-406, 2013.
-                              </li>
-                           </ol>
                         </section>
                      </div>
                   </div>
                </section>
-               <hr>
             </div>
          </div>
-      </div> -->
-       <footer id="footer">
+      </div>
+
+      <footer id="footer">
          <div class="container-fluid">
             <div class="row-fluid">
                <div class="span5">
@@ -241,52 +302,114 @@
          </div>
       </footer>
 
-      <!-- Le javascript -->
+      <!-- Scripts -->
       <script src="js/jquery-1.9.1.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
       <script>
-         $(document).ready(function() {
-             $(document.body).scrollspy({
-                 target: "#navparent"
-             });
-         });
+        $(document).ready(function() {
+          $(document.body).scrollspy({ target: "#navparent" });
+        });
       </script>
 
-      <!-- Google Translate Script -->
+      <!-- Google Translate (hidden engine) -->
       <script type="text/javascript">
-         function googleTranslateElementInit() {
-             new google.translate.TranslateElement({
-                 pageLanguage: 'en'
-             }, 'google_translate_element');
-         }
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+          }, 'google_translate_element');
+        }
       </script>
       <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-      <!-- Theme Toggle Script -->
+      <!-- Language Switcher Logic -->
       <script>
-         const toggle = document.getElementById('themeToggle');
-         const html = document.documentElement;
+        const langSwitcher   = document.getElementById('langSwitcher');
+        const langBtn        = document.getElementById('langBtn');
+        const activeFlagImg  = document.getElementById('activeFlagImg');
+        const activeLangCode = document.getElementById('activeLangCode');
+        const options        = document.querySelectorAll('.lang-option');
 
-         // Load saved theme
-         const saved = localStorage.getItem('theme') || 'light';
-         if (saved === 'dark') {
-             html.setAttribute('data-theme', 'dark');
-             toggle.innerHTML = '<span id="themeIcon">☀️</span> Light';
-         }
+        langBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const isOpen = langSwitcher.classList.toggle('open');
+          langBtn.setAttribute('aria-expanded', isOpen);
+        });
 
-         // Toggle on click
-         toggle.addEventListener('click', () => {
-             const current = html.getAttribute('data-theme');
-             if (current === 'dark') {
-                 html.setAttribute('data-theme', 'light');
-                 localStorage.setItem('theme', 'light');
-                 toggle.innerHTML = '<span id="themeIcon">🌙</span> Dark';
-             } else {
-                 html.setAttribute('data-theme', 'dark');
-                 localStorage.setItem('theme', 'dark');
-                 toggle.innerHTML = '<span id="themeIcon">☀️</span> Light';
-             }
-         });
+        document.addEventListener('click', function() {
+          langSwitcher.classList.remove('open');
+          langBtn.setAttribute('aria-expanded', 'false');
+        });
+
+        // Restore active language from cookie on page load
+        const langCookie = document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith('googtrans='));
+        if (langCookie) {
+          const parts = langCookie.split('/');
+          const activeLang = parts[parts.length - 1];
+          const matchedOpt = document.querySelector(`.lang-option[data-lang="${activeLang}"]`);
+          if (matchedOpt && activeLang !== 'en') {
+            activeFlagImg.src = matchedOpt.dataset.flag;
+            activeLangCode.textContent = matchedOpt.dataset.code;
+            options.forEach(o => o.classList.remove('active'));
+            matchedOpt.classList.add('active');
+          }
+        }
+
+        options.forEach(function(opt) {
+          opt.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const lang = this.dataset.lang;
+            const code = this.dataset.code;
+            const flag = this.dataset.flag;
+
+            activeFlagImg.src = flag;
+            activeFlagImg.alt = code;
+            activeLangCode.textContent = code;
+            options.forEach(o => o.classList.remove('active'));
+            this.classList.add('active');
+            langSwitcher.classList.remove('open');
+            langBtn.setAttribute('aria-expanded', 'false');
+            triggerGoogleTranslate(lang);
+          });
+        });
+
+        function triggerGoogleTranslate(lang) {
+          if (lang === 'en') {
+            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + location.hostname;
+            location.reload();
+            return;
+          }
+          const cookieVal = '/en/' + lang;
+          document.cookie = 'googtrans=' + cookieVal + '; path=/';
+          document.cookie = 'googtrans=' + cookieVal + '; path=/; domain=' + location.hostname;
+          location.reload();
+        }
+      </script>
+
+      <!-- Dark/Light Theme Toggle -->
+      <script>
+        const toggle = document.getElementById('themeToggle');
+        const html   = document.documentElement;
+        const saved  = localStorage.getItem('theme') || 'light';
+        if (saved === 'dark') {
+          html.setAttribute('data-theme', 'dark');
+          toggle.innerHTML = '<span id="themeIcon">☀️</span> Light';
+        }
+        toggle.addEventListener('click', () => {
+          const current = html.getAttribute('data-theme');
+          if (current === 'dark') {
+            html.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            toggle.innerHTML = '<span id="themeIcon">🌙</span> Dark';
+          } else {
+            html.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            toggle.innerHTML = '<span id="themeIcon">☀️</span> Light';
+          }
+        });
       </script>
    </body>
 </html>
