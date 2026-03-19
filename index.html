@@ -27,6 +27,8 @@
       color: var(--text-color);
       transition: background-color 0.3s, color 0.3s;
     }
+
+    /* Theme Toggle */
     .theme-toggle {
       position: fixed;
       top: 20px;
@@ -42,7 +44,7 @@
       color: var(--text-color);
     }
 
-    /* ── Language Switcher ── */
+    /* Language Switcher */
     .lang-switcher {
       position: fixed;
       top: 58px;
@@ -65,12 +67,8 @@
       transition: background 0.18s;
       white-space: nowrap;
     }
-    .lang-btn:hover {
-      background: #e8e8e8;
-    }
-    [data-theme="dark"] .lang-btn:hover {
-      background: #3a3a3a;
-    }
+    .lang-btn:hover { background: #e8e8e8; }
+    [data-theme="dark"] .lang-btn:hover { background: #3a3a3a; }
     .lang-btn .flag {
       width: 22px;
       height: 16px;
@@ -85,11 +83,8 @@
       margin-left: 2px;
       transition: transform 0.2s;
     }
-    .lang-switcher.open .caret-icon {
-      transform: rotate(180deg);
-    }
+    .lang-switcher.open .caret-icon { transform: rotate(180deg); }
 
-    /* Dropdown */
     .lang-dropdown {
       display: none;
       position: absolute;
@@ -110,7 +105,6 @@
       from { opacity: 0; transform: translateY(-6px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    /* Arrow */
     .lang-dropdown::before {
       content: '';
       position: absolute;
@@ -123,9 +117,7 @@
       border-bottom: 8px solid #fff;
       filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.08));
     }
-    .lang-switcher.open .lang-dropdown {
-      display: block;
-    }
+    .lang-switcher.open .lang-dropdown { display: block; }
     .lang-option {
       display: flex;
       align-items: center;
@@ -138,9 +130,7 @@
       transition: background 0.14s;
       text-decoration: none;
     }
-    .lang-option:hover {
-      background: #f3f3f3;
-    }
+    .lang-option:hover { background: #f3f3f3; }
     .lang-option.active {
       background: #edf7ee;
       color: #2e7d32;
@@ -155,23 +145,32 @@
       flex-shrink: 0;
     }
 
-    #footer {
-      clear: both;
-      margin-top: 60px;
-    }
-    .clearfix {
-      clear: both;
-    }
+    /* Hide Google Translate banner */
+    .skiptranslate { display: none !important; }
+    .goog-te-banner-frame { display: none !important; }
 
-
+    #footer { clear: both; margin-top: 60px; }
+    .clearfix { clear: both; }
   </style>
+
+  <!-- Apply saved theme immediately to avoid flash of wrong theme -->
+  <script>
+    (function() {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
 </head>
 <body>
+
+<!-- Theme Toggle (home page only, applies to all pages via localStorage) -->
 <button class="theme-toggle" id="themeToggle">
   <span id="themeIcon">🌙</span> Dark
 </button>
 
-<!-- ── Language Switcher (fixed, under theme toggle) ── -->
+<!-- Language Switcher (home page only, applies to all pages via googtrans cookie) -->
 <div class="lang-switcher" id="langSwitcher">
   <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
     <img class="flag" src="https://flagcdn.com/w40/us.png" alt="EN" id="activeFlagImg">
@@ -309,7 +308,7 @@
         <h5><span class="date">December 9, 2025</span></h5>
         <h4 class="feature-heading">
           <a href="https://climateandhealthresearchlab.github.io/CAH---Lab/news.html">
-            Bi-Weekly Student Research Progress Meetings in the Climate & Health Lab.
+            Bi-Weekly Student Research Progress Meetings in the Climate and Health Lab.
           </a>
         </h4>
         <hr>
@@ -336,7 +335,7 @@
     <div class="row-fluid">
       <div class="span5">
         <h3>Contact Information</h3>
-        <p><b>Office Hours:</b> Monday–Friday (8.00am – 5.00pm)</p>
+        <p><b>Office Hours:</b> Monday-Friday (8.00am - 5.00pm)</p>
         <p><b>Phone:</b> (+233) 20-087-6117</p>
         <p><b>Cell:</b> (+233) 55-056-3536</p>
         <a href="/cdn-cgi/l/email-protection#abced2c2c7c2c6c4cac59f93ebccc6cac2c785c8c4c6">Email</a>
@@ -359,11 +358,12 @@
 </footer>
 
 <!-- Scripts -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/jquery-1.9.1.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="js/jquery-1.9.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script>$('#main-carousel').carousel();</script>
 
-<!-- Google Translate (hidden engine) -->
+<!-- Google Translate engine (hidden) -->
 <div id="google_translate_element" style="display:none;"></div>
 <script type="text/javascript">
   function googleTranslateElementInit() {
@@ -375,23 +375,29 @@
   }
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+  // Suppress Google Translate top bar
+  window.addEventListener('load', function() {
+    var style = document.createElement('style');
+    style.innerHTML = 'body { top: 0 !important; } .skiptranslate { display: none !important; }';
+    document.head.appendChild(style);
+  });
+</script>
 
 <!-- Language Switcher Logic -->
 <script>
-  const langSwitcher = document.getElementById('langSwitcher');
-  const langBtn      = document.getElementById('langBtn');
+  const langSwitcher   = document.getElementById('langSwitcher');
+  const langBtn        = document.getElementById('langBtn');
   const activeFlagImg  = document.getElementById('activeFlagImg');
   const activeLangCode = document.getElementById('activeLangCode');
-  const options = document.querySelectorAll('.lang-option');
+  const options        = document.querySelectorAll('.lang-option');
 
-  // Toggle dropdown open/close
   langBtn.addEventListener('click', function(e) {
     e.stopPropagation();
     const isOpen = langSwitcher.classList.toggle('open');
     langBtn.setAttribute('aria-expanded', isOpen);
   });
 
-  // Close when clicking outside
   document.addEventListener('click', function() {
     langSwitcher.classList.remove('open');
     langBtn.setAttribute('aria-expanded', 'false');
@@ -410,42 +416,33 @@
       matchedOpt.classList.add('active');
     }
   }
+
   options.forEach(function(opt) {
     opt.addEventListener('click', function(e) {
       e.preventDefault();
       e.stopPropagation();
+      const lang = this.dataset.lang;
+      const code = this.dataset.code;
+      const flag = this.dataset.flag;
 
-      const lang  = this.dataset.lang;
-      const code  = this.dataset.code;
-      const flag  = this.dataset.flag;
-
-      // Update button
       activeFlagImg.src = flag;
       activeFlagImg.alt = code;
       activeLangCode.textContent = code;
-
-      // Update active state
       options.forEach(o => o.classList.remove('active'));
       this.classList.add('active');
-
-      // Close dropdown
       langSwitcher.classList.remove('open');
       langBtn.setAttribute('aria-expanded', 'false');
-
-      // Trigger Google Translate
       triggerGoogleTranslate(lang);
     });
   });
 
   function triggerGoogleTranslate(lang) {
     if (lang === 'en') {
-      // Reset to English: remove the Google Translate cookie and reload
       document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + location.hostname;
       location.reload();
       return;
     }
-    // Set cookie for Google Translate and reload
     const cookieVal = '/en/' + lang;
     document.cookie = 'googtrans=' + cookieVal + '; path=/';
     document.cookie = 'googtrans=' + cookieVal + '; path=/; domain=' + location.hostname;
@@ -453,15 +450,16 @@
   }
 </script>
 
-<!-- Dark/Light Theme Toggle -->
+<!-- Dark/Light Theme Toggle (home page only, persists via localStorage) -->
 <script>
   const toggle = document.getElementById('themeToggle');
-  const html = document.documentElement;
-  const saved = localStorage.getItem('theme') || 'light';
-  if (saved === 'dark') {
-    html.setAttribute('data-theme', 'dark'); 
+  const html   = document.documentElement;
+
+  // Set button label to match the already-applied theme (set in <head>)
+  if (html.getAttribute('data-theme') === 'dark') {
     toggle.innerHTML = '<span id="themeIcon">☀️</span> Light';
   }
+
   toggle.addEventListener('click', () => {
     const current = html.getAttribute('data-theme');
     if (current === 'dark') {
@@ -470,3 +468,11 @@
       toggle.innerHTML = '<span id="themeIcon">🌙</span> Dark';
     } else {
       html.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+      toggle.innerHTML = '<span id="themeIcon">☀️</span> Light';
+    }
+  });
+</script>
+
+</body>
+</html>
