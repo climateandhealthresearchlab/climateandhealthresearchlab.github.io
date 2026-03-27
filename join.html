@@ -45,6 +45,35 @@
         padding: 20px;
         margin-bottom: 30px;
       }
+
+      /* Contact section styles */
+      .contact-columns {
+        display: flex;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+      .contact-form-col {
+        flex: 1 1 55%;
+        min-width: 280px;
+      }
+      .contact-info-col {
+        flex: 1 1 30%;
+        min-width: 220px;
+      }
+      .contact-info-col h4 {
+        margin-top: 20px;
+        margin-bottom: 4px;
+        color: var(--text-color);
+      }
+      .contact-info-col p {
+        margin-bottom: 6px;
+      }
+      .contact-form-col iframe {
+        border-radius: 10px;
+        width: 100%;
+        border: none;
+      }
     </style>
 
     <!-- Apply saved theme immediately to avoid flash -->
@@ -120,6 +149,7 @@
                     <li><a href="#who">Who Can Apply</a></li>
                     <li><a href="#positions">Available Positions</a></li>
                     <li><a href="#apply">How to Apply</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
                 </ul>
             </div>
 
@@ -185,6 +215,37 @@
                         <p><b>Subject line:</b> Application - Climate and Health Research Lab</p>
                     </div>
                 </section>
+
+                <!-- ===== CONTACT SECTION (merged from contact.html) ===== -->
+                <section id="contact">
+                    <div class="page-header">
+                        <h3>Get in Touch</h3>
+                    </div>
+                    <div class="contact-columns">
+                        <!-- Google Form -->
+                        <div class="contact-form-col">
+                            <iframe
+                                src="https://docs.google.com/forms/d/e/1FAIpQLScq84KlwPT10jh4TW82W0HBaaSBzkF7hZZkD2kmCvqn4yXkbg/viewform?embedded=true"
+                                height="900"
+                                marginheight="0"
+                                marginwidth="0">
+                                Loading form...
+                            </iframe>
+                        </div>
+                        <!-- Contact Details -->
+                        <div class="contact-info-col">
+                            <h4>Phone</h4>
+                            <p>+233 20-087-6117<br>+233 55-056-3536</p>
+                            <h4>Email</h4>
+                            <p><a href="mailto:eyilimoan48@gmail.com">eyilimoan48@gmail.com</a></p>
+                            <h4>Office Hours</h4>
+                            <p>Monday - Friday<br>8:00 am - 5:00 pm</p>
+                            <h4>Location</h4>
+                            <p>Casley Hayford, Room 432<br>KNUST, Kumasi, Ghana</p>
+                        </div>
+                    </div>
+                </section>
+                <!-- ===== END CONTACT SECTION ===== -->
 
             </div>
         </div>
