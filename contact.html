@@ -40,7 +40,7 @@
   .goog-logo-link { display: none !important; }
 </style>
 
-<!-- Apply saved theme immediately to avoid flash -->
+<!-- Apply saved theme immediately -->
 <script>
   (function() {
     if (localStorage.getItem('theme') === 'dark') {
@@ -52,7 +52,7 @@
 
 <body>
 
-<!-- Google Translate engine (reads googtrans cookie set on index.html) -->
+<!-- Google Translate -->
 <div id="google_translate_element" style="display:none;"></div>
 <script type="text/javascript">
   function googleTranslateElementInit() {
@@ -63,9 +63,9 @@
     }, 'google_translate_element');
   }
 </script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 <script>
-  // Suppress Google Translate top bar
   window.addEventListener('load', function() {
     var style = document.createElement('style');
     style.innerHTML = 'body { top: 0 !important; } .skiptranslate { display: none !important; }';
@@ -75,7 +75,7 @@
 
 <div class="container">
 
-    <!-- HEADER IMAGE -->
+    <!-- HEADER -->
     <header id="overview" class="page-header">
         <img src="images/heading.jpg" class="header-image" alt="Climate and Health Lab">
     </header>
@@ -103,28 +103,23 @@
 
     <hr>
 
-    <!-- CONTACT SECTION -->
+    <!-- FORECAST SECTION -->
     <div class="row-fluid">
 
-        <!-- LEFT COLUMN: Google Form -->
-        <div class="span6">
-           <h3>Forecast Dashboard</h3>
+        <div class="span12">
+            <h3>Forecast Dashboard</h3>
+            <h4>Real-Time Weather Forecast (Kumasi, Ghana)</h4>
 
-<iframe 
-    width="100%" 
-    height="600" 
-    src="https://embed.windy.com/embed2.html?lat=6.67&lon=-1.57&zoom=6&level=surface&overlay=rain&menu=true&message=true&marker=true"
-    frameborder="0"
-    style="border-radius:10px;">
-</iframe>
+            <p><b>Last Updated:</b> <span id="date"></span></p>
 
-        <!-- RIGHT COLUMN -->
-        <div class="span5 offset1">
-            <h3>Contact</h3>
-            <h4>Phone</h4>
-            <p>+233 20-087-6117<br>+233 55-056-3536</p>
-            <h4>Email</h4>
-            <p>eyilimoan48@gmail.com</p>
+            <iframe 
+                width="100%" 
+                height="700" 
+                src="https://embed.windy.com/embed2.html?lat=6.67&lon=-1.57&zoom=6&level=surface&overlay=rain&menu=true&message=true&marker=true"
+                frameborder="0"
+                style="border-radius:10px;">
+            </iframe>
+
         </div>
 
     </div>
@@ -145,7 +140,7 @@
             <div class="span5">
                 <h3>Climate and Health Lab</h3>
                 <p>Casley Hayford<br>ROOM 432<br>KNUST, Kumasi<br>Ghana</p>
-                <a href="https://www.google.com/maps/place/Casely+-+Hayford+Building/@6.6756608,-1.5703021,17z/data=!3m1!4b1!4m6!3m5!1s0xfdb950098c80055:0xab0c5d2575808dab!8m2!3d6.6756555!4d-1.5677272!16s%2Fg%2F11gltjb61x?entry=ttu&g_ep=EgoyMDI2MDEwNy4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D">Show Map</a>
+                <a href="https://www.google.com/maps/place/Casely+-+Hayford+Building/@6.6756608,-1.5703021,17z">Show Map</a>
             </div>
         </div>
     </footer>
@@ -153,6 +148,10 @@
 </div>
 
 <!-- Scripts -->
+<script>
+  document.getElementById("date").innerHTML = new Date().toDateString();
+</script>
+
 <script src="js/jquery-1.9.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 
