@@ -4,27 +4,29 @@
 <meta charset="utf-8">
 <title>Forecast - Climate And Health Research Lab</title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 <style>
-button {
-  margin: 5px;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+#map {
+  height: 600px;
+  border-radius: 10px;
 }
 
-.impact-box {
+.info-box {
   background: #f5f5f5;
   padding: 15px;
   border-radius: 10px;
-  margin-bottom: 15px;
 }
 
-[data-theme="dark"] .impact-box {
-  background: #2d2d2d;
+body {
+  padding-top: 0;
 }
 </style>
 </head>
@@ -38,7 +40,7 @@ button {
   <img src="images/heading.jpg" style="width:100%;">
 </header>
 
-<!-- NAV -->
+<!-- NAVBAR -->
 <div class="navbar">
   <div class="navbar-inner">
     <ul class="nav">
@@ -59,70 +61,18 @@ button {
 
 <div class="row-fluid">
 
-  <!-- LEFT: FORECAST -->
+  <!-- LEFT: MAP -->
   <div class="span8">
-
-    <h3>Forecast Dashboard</h3>
-    <h4>Real-Time Weather Forecast (Kumasi, Ghana)</h4>
-
-    <p><b>Last Updated:</b> <span id="date"></span></p>
-    <p><b>Tip:</b> Select a variable to explore climate conditions.</p>
-
-    <!-- BUTTONS -->
-    <div>
-      <button onclick="changeLayer('rain')">🌧 Rain</button>
-      <button onclick="changeLayer('temp')">🌡 Temperature</button>
-      <button onclick="changeLayer('wind')">🌬 Wind</button>
-      <button onclick="changeLayer('clouds')">☁ Clouds</button>
-    </div>
-
-    <!-- MAP -->
-    <iframe 
-      id="windyMap"
-      width="100%" 
-      height="600"
-      src="https://embed.windy.com/embed2.html?lat=6.67&lon=-1.57&zoom=5&overlay=rain&menu=true&type=map"
-      frameborder="0"
-      style="border-radius:10px;">
-    </iframe>
-
+    <h3>Interactive Climate Map (Ghana)</h3>
+    <div id="map"></div>
   </div>
 
-  <!-- RIGHT: HEALTH IMPACTS -->
+  <!-- RIGHT: INFO PANEL -->
   <div class="span4">
+    <h3>Climate & Health Insights</h3>
 
-    <h3>Climate & Health Impacts</h3>
-
-    <div class="impact-box">
-      <h4>🌡 Heat Stress</h4>
-      <p>
-      High temperatures may increase the risk of heat exhaustion and dehydration,
-      especially among outdoor workers and vulnerable populations.
-      </p>
-    </div>
-
-    <div class="impact-box">
-      <h4>🌧 Malaria Risk</h4>
-      <p>
-      Increased rainfall can create breeding sites for mosquitoes, potentially
-      elevating malaria transmission risk in affected regions.
-      </p>
-    </div>
-
-    <div class="impact-box">
-      <h4>🌬 Air Quality</h4>
-      <p>
-      Wind patterns influence the dispersion of pollutants. Low wind speeds may
-      lead to poor air quality and respiratory health concerns.
-      </p>
-    </div>
-
-    <div class="impact-box">
-      <h4>⚠ Advisory</h4>
-      <p>
-      Monitor vulnerable populations, including children and the elderly,
-      during extreme weather conditions.
-      </p>
+    <div class="info-box" id="infoBox">
+      <p>Click a region to view climate conditions and health impacts.</p>
     </div>
 
   </div>
@@ -138,14 +88,79 @@ button {
 
 </div>
 
-<!-- SCRIPTS -->
+<!-- SCRIPT -->
 <script>
-document.getElementById("date").innerHTML = new Date().toDateString();
 
-function changeLayer(layer) {
-  const iframe = document.getElementById("windyMap");
-  iframe.src = `https://embed.windy.com/embed2.html?lat=6.67&lon=-1.57&zoom=5&overlay=${layer}&menu=true&type=map`;
-}
+// Initialize map
+var map = L.map('map').setView([7.9465, -1.0232], 6);
+
+// Base map
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap'
+}).addTo(map);
+
+// 🔹 SAMPLE DATA (REPLACE WITH YOUR REAL DATA LATER)
+var climateData = {
+  "Ashanti": { temp: 32, rain: "Moderate", humidity: 75, wind: 10 },
+  "Greater Accra": { temp: 30, rain: "Low", humidity: 80, wind: 15 },
+  "Northern": { temp: 35, rain: "Low", humidity: 60, wind: 12 }
+};
+
+// 🔹 LOAD GEOJSON
+fetch('geoBoundaries-GHA-ADM1_simplified.geojson')
+.then(res => res.json())
+.then(data => {
+
+  L.geoJSON(data, {
+
+    style: function() {
+      return {
+        color: "#333",
+        weight: 1,
+        fillColor: "#6baed6",
+        fillOpacity: 0.6
+      };
+    },
+
+    onEachFeature: function(feature, layer) {
+
+      layer.on('click', function() {
+
+        // 🔥 IMPORTANT: Check your GeoJSON property name
+        var region = feature.properties.shapeName || feature.properties.name;
+
+        var d = climateData[region] || {
+          temp: "N/A",
+          rain: "N/A",
+          humidity: "N/A",
+          wind: "N/A"
+        };
+
+        // 🔥 HEALTH INTERPRETATION LOGIC
+        var heatRisk = (d.temp > 34) ? "High" : (d.temp > 30 ? "Moderate" : "Low");
+        var malariaRisk = (d.rain === "Moderate" || d.rain === "High") ? "Elevated" : "Low";
+
+        document.getElementById("infoBox").innerHTML = `
+          <h4>${region}</h4>
+          <p>🌡 Temperature: ${d.temp} °C</p>
+          <p>🌧 Rainfall: ${d.rain}</p>
+          <p>💧 Humidity: ${d.humidity}%</p>
+          <p>🌬 Wind: ${d.wind} km/h</p>
+
+          <hr>
+
+          <h4>Health Impacts</h4>
+          <p>🔥 Heat Stress Risk: <b>${heatRisk}</b></p>
+          <p>🦟 Malaria Risk: <b>${malariaRisk}</b></p>
+        `;
+      });
+
+    }
+
+  }).addTo(map);
+
+});
+
 </script>
 
 <script src="js/jquery-1.9.1.min.js"></script>
