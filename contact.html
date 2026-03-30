@@ -3,24 +3,29 @@
 <head>
 <meta charset="utf-8">
 <title>Forecast - Climate And Health Research Lab</title>
-<link rel="icon" type="image/png" href="images/lablogo.png">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
-<link href="css/theme.css" rel="stylesheet">
 
 <style>
-  body { padding-top: 0; }
+button {
+  margin: 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-  button {
-    margin-right: 10px;
-    margin-bottom: 10px;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+.impact-box {
+  background: #f5f5f5;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+[data-theme="dark"] .impact-box {
+  background: #2d2d2d;
+}
 </style>
 </head>
 
@@ -28,66 +33,108 @@
 
 <div class="container">
 
-    <!-- HEADER -->
-    <header class="page-header">
-        <img src="images/heading.jpg" style="width:100%;">
-    </header>
+<!-- HEADER -->
+<header class="page-header">
+  <img src="images/heading.jpg" style="width:100%;">
+</header>
 
-    <!-- NAVBAR -->
-    <div class="navbar">
-        <div class="navbar-inner">
-            <ul class="nav">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="people.html">People</a></li>
-                <li><a href="research.html">Research</a></li>
-                <li><a href="publications.html">Publications</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="news.html">News</a></li>
-                <li><a href="teaching.html">Teaching</a></li>
-                <li><a href="join.html">Join Us</a></li>
-                <li class="active"><a href="#">Forecast</a></li>
-            </ul>
-        </div>
+<!-- NAV -->
+<div class="navbar">
+  <div class="navbar-inner">
+    <ul class="nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="teaching.html">Teaching</a></li>
+      <li><a href="join.html">Join Us</a></li>
+      <li class="active"><a href="#">Forecast</a></li>
+    </ul>
+  </div>
+</div>
+
+<hr>
+
+<div class="row-fluid">
+
+  <!-- LEFT: FORECAST -->
+  <div class="span8">
+
+    <h3>Forecast Dashboard</h3>
+    <h4>Real-Time Weather Forecast (Kumasi, Ghana)</h4>
+
+    <p><b>Last Updated:</b> <span id="date"></span></p>
+    <p><b>Tip:</b> Select a variable to explore climate conditions.</p>
+
+    <!-- BUTTONS -->
+    <div>
+      <button onclick="changeLayer('rain')">🌧 Rain</button>
+      <button onclick="changeLayer('temp')">🌡 Temperature</button>
+      <button onclick="changeLayer('wind')">🌬 Wind</button>
+      <button onclick="changeLayer('clouds')">☁ Clouds</button>
     </div>
 
-    <hr>
+    <!-- MAP -->
+    <iframe 
+      id="windyMap"
+      width="100%" 
+      height="600"
+      src="https://embed.windy.com/embed2.html?lat=6.67&lon=-1.57&zoom=5&overlay=rain&menu=true&type=map"
+      frameborder="0"
+      style="border-radius:10px;">
+    </iframe>
 
-    <!-- FORECAST SECTION -->
-    <div class="row-fluid">
-        <div class="span12">
+  </div>
 
-            <h3>Forecast Dashboard</h3>
-            <h4>Real-Time Weather Forecast (Kumasi, Ghana)</h4>
+  <!-- RIGHT: HEALTH IMPACTS -->
+  <div class="span4">
 
-            <p><b>Last Updated:</b> <span id="date"></span></p>
-            <p><b>Tip:</b> Use the buttons below to switch between climate variables.</p>
+    <h3>Climate & Health Impacts</h3>
 
-            <!-- BUTTONS -->
-            <div style="margin-bottom:15px;">
-                <button onclick="changeLayer('rain')">🌧 Rain</button>
-                <button onclick="changeLayer('temp')">🌡 Temperature</button>
-                <button onclick="changeLayer('wind')">🌬 Wind</button>
-                <button onclick="changeLayer('clouds')">☁ Clouds</button>
-            </div>
-
-            <!-- WINDY MAP -->
-            <iframe 
-                id="windyMap"
-                width="100%" 
-                height="700" 
-                src="https://embed.windy.com/embed2.html?lat=6.67&lon=-1.57&zoom=5&overlay=rain&menu=true&type=map"
-                frameborder="0"
-                style="border-radius:10px;">
-            </iframe>
-
-        </div>
+    <div class="impact-box">
+      <h4>🌡 Heat Stress</h4>
+      <p>
+      High temperatures may increase the risk of heat exhaustion and dehydration,
+      especially among outdoor workers and vulnerable populations.
+      </p>
     </div>
 
-    <!-- FOOTER -->
-    <footer>
-        <hr>
-        <p>Climate and Health Lab, KNUST, Kumasi, Ghana</p>
-    </footer>
+    <div class="impact-box">
+      <h4>🌧 Malaria Risk</h4>
+      <p>
+      Increased rainfall can create breeding sites for mosquitoes, potentially
+      elevating malaria transmission risk in affected regions.
+      </p>
+    </div>
+
+    <div class="impact-box">
+      <h4>🌬 Air Quality</h4>
+      <p>
+      Wind patterns influence the dispersion of pollutants. Low wind speeds may
+      lead to poor air quality and respiratory health concerns.
+      </p>
+    </div>
+
+    <div class="impact-box">
+      <h4>⚠ Advisory</h4>
+      <p>
+      Monitor vulnerable populations, including children and the elderly,
+      during extreme weather conditions.
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <hr>
+  <p><b>Climate and Health Research Lab</b><br>
+  KNUST, Kumasi, Ghana</p>
+</footer>
 
 </div>
 
@@ -96,8 +143,8 @@
 document.getElementById("date").innerHTML = new Date().toDateString();
 
 function changeLayer(layer) {
-    const iframe = document.getElementById("windyMap");
-    iframe.src = `https://embed.windy.com/embed2.html?lat=6.67&lon=-1.57&zoom=5&overlay=${layer}&menu=true&type=map`;
+  const iframe = document.getElementById("windyMap");
+  iframe.src = `https://embed.windy.com/embed2.html?lat=6.67&lon=-1.57&zoom=5&overlay=${layer}&menu=true&type=map`;
 }
 </script>
 
