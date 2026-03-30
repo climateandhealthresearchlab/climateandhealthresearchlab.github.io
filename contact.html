@@ -5,99 +5,48 @@
 <title>Forecast - Climate And Health Research Lab</title>
 <link rel="icon" type="image/png" href="images/lablogo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Research Lab">
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 <link href="css/theme.css" rel="stylesheet">
-<link href="css/social-buttons.css" rel="stylesheet">
 
 <style>
-  :root {
-    --bg-color: #ffffff;
-    --text-color: #333333;
-    --secondary-bg: #f5f5f5;
-  }
-  [data-theme="dark"] {
-    --bg-color: #1a1a1a;
-    --text-color: #e0e0e0;
-    --secondary-bg: #2d2d2d;
-  }
-  body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
-    top: 0 !important;
-  }
+  body { padding-top: 0; }
 
-  .page-header { margin-bottom: 50px; }
-  .header-image { width: 100%; height: auto; display: block; }
-
-  /* Hide Google Translate banner */
-  .goog-te-banner-frame,
-  .skiptranslate,
-  .skiptranslate iframe,
-  .goog-logo-link { display: none !important; }
+  button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 </style>
-
-<!-- Apply saved theme immediately -->
-<script>
-  (function() {
-    if (localStorage.getItem('theme') === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
-  })();
-</script>
 </head>
 
 <body>
 
-<!-- Google Translate -->
-<div id="google_translate_element" style="display:none;"></div>
-<script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'en',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-      autoDisplay: false
-    }, 'google_translate_element');
-  }
-</script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<script>
-  window.addEventListener('load', function() {
-    var style = document.createElement('style');
-    style.innerHTML = 'body { top: 0 !important; } .skiptranslate { display: none !important; }';
-    document.head.appendChild(style);
-  });
-</script>
-
 <div class="container">
 
     <!-- HEADER -->
-    <header id="overview" class="page-header">
-        <img src="images/heading.jpg" class="header-image" alt="Climate and Health Lab">
+    <header class="page-header">
+        <img src="images/heading.jpg" style="width:100%;">
     </header>
 
     <!-- NAVBAR -->
-    <div class="masthead">
-        <div class="navbar">
-            <div class="navbar-inner">
-                <div class="container">
-                    <ul class="nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="people.html">People</a></li>
-                        <li><a href="research.html">Research</a></li>
-                        <li><a href="publications.html">Publications</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
-                        <li><a href="news.html">News</a></li>
-                        <li><a href="teaching.html">Teaching</a></li>
-                        <li><a href="join.html">Join Us</a></li>
-                        <li class="active"><a href="#">Forecast</a></li>
-                    </ul>
-                </div>
-            </div>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <ul class="nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="people.html">People</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="teaching.html">Teaching</a></li>
+                <li><a href="join.html">Join Us</a></li>
+                <li class="active"><a href="#">Forecast</a></li>
+            </ul>
         </div>
     </div>
 
@@ -105,51 +54,51 @@
 
     <!-- FORECAST SECTION -->
     <div class="row-fluid">
-
         <div class="span12">
+
             <h3>Forecast Dashboard</h3>
             <h4>Real-Time Weather Forecast (Kumasi, Ghana)</h4>
 
             <p><b>Last Updated:</b> <span id="date"></span></p>
+            <p><b>Tip:</b> Use the buttons below to switch between climate variables.</p>
 
+            <!-- BUTTONS -->
+            <div style="margin-bottom:15px;">
+                <button onclick="changeLayer('rain')">🌧 Rain</button>
+                <button onclick="changeLayer('temp')">🌡 Temperature</button>
+                <button onclick="changeLayer('wind')">🌬 Wind</button>
+                <button onclick="changeLayer('clouds')">☁ Clouds</button>
+            </div>
+
+            <!-- WINDY MAP -->
             <iframe 
+                id="windyMap"
                 width="100%" 
                 height="700" 
-                src="https://embed.windy.com/embed2.html?lat=6.67&lon=-1.57&zoom=6&level=surface&overlay=rain&menu=true&message=true&marker=true"
+                src="https://embed.windy.com/embed2.html?lat=6.67&lon=-1.57&zoom=5&overlay=rain&menu=true&type=map"
                 frameborder="0"
                 style="border-radius:10px;">
             </iframe>
 
         </div>
-
     </div>
 
     <!-- FOOTER -->
-    <footer id="footer">
-        <div class="row-fluid">
-            <div class="span5">
-                <h3>Contact Information</h3>
-                <p><b>Office Hours:</b> Mon-Fri (8am-5pm)</p>
-                <p><b>Phone:</b> (+233) 20-087-6117</p>
-                <p><b>Cell:</b> (+233) 55-056-3536</p>
-                <a href="mailto:eyilimoan48@gmail.com">Email</a>
-            </div>
-            <div class="span2">
-                <img src="images/lablogo.png" alt="Lab Logo">
-            </div>
-            <div class="span5">
-                <h3>Climate and Health Lab</h3>
-                <p>Casley Hayford<br>ROOM 432<br>KNUST, Kumasi<br>Ghana</p>
-                <a href="https://www.google.com/maps/place/Casely+-+Hayford+Building/@6.6756608,-1.5703021,17z">Show Map</a>
-            </div>
-        </div>
+    <footer>
+        <hr>
+        <p>Climate and Health Lab, KNUST, Kumasi, Ghana</p>
     </footer>
 
 </div>
 
-<!-- Scripts -->
+<!-- SCRIPTS -->
 <script>
-  document.getElementById("date").innerHTML = new Date().toDateString();
+document.getElementById("date").innerHTML = new Date().toDateString();
+
+function changeLayer(layer) {
+    const iframe = document.getElementById("windyMap");
+    iframe.src = `https://embed.windy.com/embed2.html?lat=6.67&lon=-1.57&zoom=5&overlay=${layer}&menu=true&type=map`;
+}
 </script>
 
 <script src="js/jquery-1.9.1.min.js"></script>
