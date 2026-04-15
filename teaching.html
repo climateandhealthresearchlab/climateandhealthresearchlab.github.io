@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Teaching - Climate And Health Research Lab</title>
+    <title>DataHub - Climate And Health Research Lab</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Teaching - Climate and Health Research Lab">
+    <meta name="description" content="DataHub - Climate and Health Research Lab">
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -15,6 +15,7 @@
         --bg-color: #ffffff;
         --text-color: #333333;
         --secondary-bg: #f5f5f5;
+        --accent: #2a7f62;
       }
       [data-theme="dark"] {
         --bg-color: #1a1a1a;
@@ -28,49 +29,70 @@
         top: 0 !important;
       }
 
-      /* Layout: sidebar + content side by side */
-      .row-fluid {
-        display: flex;
-        align-items: flex-start;
-        gap: 30px;
-      }
-
-      /* Sticky Sidebar */
-      #navparent {
-        position: sticky !important;
-        top: 20px;
-        overflow: visible !important;
-        align-self: flex-start;
-        flex-shrink: 0;
-        width: 220px;
-      }
-      #navparent.affix,
-      #navparent.affix-top,
-      #navparent.affix-bottom {
-        position: sticky !important;
-        top: 20px !important;
-        width: 220px !important;
-      }
-
-      /* Main content */
-      .span8.offset1 {
-        margin-left: 0 !important;
-        flex: 1;
-        min-width: 0;
-      }
-
-      section {
-        padding-top: 0;
-        margin-top: 0;
-        margin-bottom: 10px;
-      }
-
       /* Hide Google Translate banner */
       .skiptranslate { display: none !important; }
       .goog-te-banner-frame { display: none !important; }
+
+      /* Coming Soon Section */
+      .datahub-coming-soon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 420px;
+        text-align: center;
+        padding: 60px 20px;
+      }
+
+      .datahub-icon {
+        font-size: 72px;
+        margin-bottom: 24px;
+        animation: pulse 2.5s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.08); opacity: 0.8; }
+      }
+
+      .datahub-coming-soon h2 {
+        font-size: 2.4em;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 12px;
+        letter-spacing: 1px;
+      }
+
+      .datahub-coming-soon p {
+        font-size: 1.15em;
+        color: var(--text-color);
+        opacity: 0.75;
+        max-width: 480px;
+        line-height: 1.7;
+      }
+
+      .datahub-badge {
+        display: inline-block;
+        margin-top: 28px;
+        padding: 10px 28px;
+        border: 2px solid var(--accent);
+        border-radius: 30px;
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 0.95em;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        animation: fadeInUp 1s ease forwards;
+        opacity: 0;
+        animation-delay: 0.4s;
+      }
+
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
     </style>
 
-    <!-- Apply saved theme immediately to avoid flash -->
     <script>
       (function() {
         if (localStorage.getItem('theme') === 'dark') {
@@ -82,7 +104,6 @@
 
 <body>
 
-<!-- Google Translate engine (reads googtrans cookie set on index.html) -->
 <div id="google_translate_element" style="display:none;"></div>
 <script type="text/javascript">
   function googleTranslateElementInit() {
@@ -95,7 +116,6 @@
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script>
-  // Suppress Google Translate top bar
   window.addEventListener('load', function() {
     var style = document.createElement('style');
     style.innerHTML = 'body { top: 0 !important; } .skiptranslate { display: none !important; }';
@@ -122,7 +142,7 @@
                         <li><a href="publications.html">Publications</a></li>
                         <li><a href="gallery.html">Gallery</a></li>
                         <li><a href="news.html">News</a></li>
-                        <li class="active"><a href="#">Teaching</a></li>
+                        <li class="active"><a href="#">DataHub</a></li>
                         <li><a href="join.html">Join Us</a></li>
                         <li><a href="contact.html">Forecast</a></li>
                     </ul>
@@ -133,94 +153,17 @@
 
     <hr>
 
-    <div class="row-fluid">
-
-        <!-- SIDEBAR -->
-        <div class="span3 bs-docs-sidebar" id="navparent">
-            <ul class="nav nav-list bs-docs-sidenav">
-                <li><a href="#sciComp546">Scientific Computing for Physics (PHYC 546)</a></li>
-                <li><a href="#python254">Python for Scientific Computing (MET 254)</a></li>
-                <li><a href="#biomet462">Biometeorology &amp; Human Health (MET 462)</a></li>
-                <li><a href="#fortran253">Programming with Fortran (MET 253)</a></li>
-                <li><a href="#envphys369">Environmental Physics I (PHY 369)</a></li>
-                <li><a href="#sciCompPHY546">Scientific Computing for Physics (PHY 546)</a></li>
-                <li><a href="#micro357">Micrometeorology (MET 357)</a></li>
-            </ul>
-        </div>
-
-        <!-- MAIN CONTENT -->
-        <div class="span8 offset1">
-
-            <section id="sciComp546">
-                <div class="page-header">
-                    <h3>Scientific Computing for Physics (PHYC 546)</h3>
-                </div>
-                <p><b>Program:</b> MSc Physics, Institute of Distance Learning (IDL), KNUST</p>
-                <p><b>Semester:</b> Spring</p>
-                <p><b>Description:</b> Numerical analysis, algorithm development, and computational methods applied to physics problems.</p>
-            </section>
-
-            <section id="python254">
-                <div class="page-header">
-                    <h3>Python for Scientific Computing (MET 254)</h3>
-                </div>
-                <p><b>Program:</b> BSc Meteorology &amp; Climate Science</p>
-                <p><b>Level:</b> 200</p>
-                <p><b>Semester:</b> Fall</p>
-                <p><b>Description:</b> Introduction to Python programming, data analysis, visualization, and reproducible scientific workflows.</p>
-            </section>
-
-            <section id="biomet462">
-                <div class="page-header">
-                    <h3>Biometeorology &amp; Human Health (MET 462)</h3>
-                </div>
-                <p><b>Program:</b> BSc Meteorology &amp; Climate Science</p>
-                <p><b>Level:</b> 400</p>
-                <p><b>Semester:</b> Fall</p>
-                <p><b>Description:</b> Climate-health interactions, heat stress, disease modelling, and environmental exposures.</p>
-            </section>
-
-            <section id="fortran253">
-                <div class="page-header">
-                    <h3>Programming with Fortran (MET 253)</h3>
-                </div>
-                <p><b>Program:</b> BSc Meteorology &amp; Climate Science</p>
-                <p><b>Level:</b> 200</p>
-                <p><b>Semester:</b> Spring</p>
-                <p><b>Description:</b> Structured and modular programming in Fortran for weather and climate applications.</p>
-            </section>
-
-            <section id="envphys369">
-                <div class="page-header">
-                    <h3>Environmental Physics I (PHY 369)</h3>
-                </div>
-                <p><b>Program:</b> BSc Physics</p>
-                <p><b>Level:</b> 300</p>
-                <p><b>Semester:</b> Spring</p>
-                <p><b>Description:</b> Energy balance, atmospheric processes, environmental thermodynamics, and radiation.</p>
-            </section>
-
-            <section id="sciCompPHY546">
-                <div class="page-header">
-                    <h3>Scientific Computing for Physics (PHY 546)</h3>
-                </div>
-                <p><b>Program:</b> MSc Physics, IDL</p>
-                <p><b>Year:</b> 1</p>
-                <p><b>Semester:</b> Spring</p>
-                <p><b>Description:</b> Advanced numerical techniques for modelling and simulation in physics.</p>
-            </section>
-
-            <section id="micro357">
-                <div class="page-header">
-                    <h3>MET 357: Micrometeorology</h3>
-                </div>
-                <p><b>Program:</b> BSc Meteorology &amp; Climate Science</p>
-                <p><b>Level:</b> 300</p>
-                <p><b>Description:</b> Surface energy balance, turbulence, boundary-layer dynamics, and micro-scale atmospheric processes.</p>
-            </section>
-
-        </div>
+    <!-- DATAHUB COMING SOON -->
+    <div class="datahub-coming-soon">
+        <div class="datahub-icon">🛰️</div>
+        <h2>DataHub</h2>
+        <p>
+            We are building a centralized hub for climate and health data resources, datasets, and tools.
+            Check back soon for curated datasets, analysis pipelines, and open-access research materials.
+        </p>
+        <span class="datahub-badge">Coming Soon</span>
     </div>
+
 </div>
 
 <!-- FOOTER -->
@@ -246,14 +189,8 @@
     </div>
 </footer>
 
-<!-- Scripts -->
 <script src="js/jquery-1.9.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script>
-  $(document).ready(function() {
-    $(document.body).scrollspy({ target: "#navparent" });
-  });
-</script>
 
 </body>
 </html>
