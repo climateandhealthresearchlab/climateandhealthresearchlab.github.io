@@ -1,159 +1,174 @@
+<!-- forecast.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <title>Forecast - Climate And Health Research Lab</title>
-<link rel="icon" type="image/png" href="images/lablogo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Research Lab">
+
+<link rel="icon" type="image/png" href="images/lablogo.png">
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 <link href="css/theme.css" rel="stylesheet">
 <link href="css/social-buttons.css" rel="stylesheet">
 
-<style>
-  :root {
-    --bg-color: #ffffff;
-    --text-color: #333333;
-    --secondary-bg: #f5f5f5;
-  }
-  [data-theme="dark"] {
-    --bg-color: #1a1a1a;
-    --text-color: #e0e0e0;
-    --secondary-bg: #2d2d2d;
-  }
-  body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
-    top: 0 !important;
-  }
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<link rel="stylesheet" href="forecast.css">
 
-  .page-header { margin-bottom: 50px; }
-  .header-image { width: 100%; height: auto; display: block; }
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  /* Hide Google Translate banner */
-  .goog-te-banner-frame,
-  .skiptranslate,
-  .skiptranslate iframe,
-  .goog-logo-link { display: none !important; }
-</style>
-
-<!-- Apply saved theme immediately -->
-<script>
-  (function() {
-    if (localStorage.getItem('theme') === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
-  })();
-</script>
 </head>
-
 <body>
-
-<!-- Google Translate -->
-<div id="google_translate_element" style="display:none;"></div>
-<script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'en',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-      autoDisplay: false
-    }, 'google_translate_element');
-  }
-</script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<script>
-  window.addEventListener('load', function() {
-    var style = document.createElement('style');
-    style.innerHTML = 'body { top: 0 !important; } .skiptranslate { display: none !important; }';
-    document.head.appendChild(style);
-  });
-</script>
 
 <div class="container">
 
-    <!-- HEADER -->
-    <header id="overview" class="page-header">
-        <img src="images/heading.jpg" class="header-image" alt="Climate and Health Lab">
-    </header>
+<header class="page-header">
+<img src="images/heading.jpg" class="header-image" style="width:100%;">
+</header>
 
-    <!-- NAVBAR -->
-    <div class="masthead">
-        <div class="navbar">
-            <div class="navbar-inner">
-                <div class="container">
-                    <ul class="nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="people.html">People</a></li>
-                        <li><a href="research.html">Research</a></li>
-                        <li><a href="publications.html">Publications</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
-                        <li><a href="news.html">News</a></li>
-                        <li><a href="teaching.html">DataHub</a></li>
-                        <li><a href="join.html">Join Us</a></li>
-                        <li class="active"><a href="#">Forecast</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="masthead">
+<div class="navbar">
+<div class="navbar-inner">
+<div class="container">
+<ul class="nav">
+<li><a href="index.html">Home</a></li>
+<li><a href="people.html">People</a></li>
+<li><a href="research.html">Research</a></li>
+<li><a href="publications.html">Publications</a></li>
+<li><a href="gallery.html">Gallery</a></li>
+<li><a href="news.html">News</a></li>
+<li><a href="teaching.html">DataHub</a></li>
+<li><a href="join.html">Join Us</a></li>
+<li class="active"><a href="#">Forecast</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 
-    <hr>
+<hr>
 
-    <!-- FORECAST SECTION -->
-    <div class="row-fluid">
+<div class="dashboard-shell">
 
-        <div class="span12">
-            <h3>Forecast Dashboard</h3>
-            <h4>Real-Time Weather Forecast (Kumasi, Ghana)</h4>
+<header class="site-header">
+<div class="header-left">
+<div class="lab-badge">CHRL</div>
+<div class="page-title">HEAT HEALTH EARLY WARNING SYSTEM</div>
+</div>
 
-            <p><b>Last Updated:</b> <span id="date"></span></p>
+<div>
+<span class="pulse-dot"></span>
+LIVE FORECAST
+<span id="datetime"></span>
+</div>
+</header>
 
-            <iframe 
-                width="100%" 
-                height="700" 
-                src="https://embed.windy.com/embed2.html?lat=6.67&lon=-1.57&zoom=6&level=surface&overlay=rain&menu=true&message=true&marker=true"
-                frameborder="0"
-                style="border-radius:10px;">
-            </iframe>
+<div class="main">
 
-        </div>
+<div class="map-side">
 
-    </div>
+<div id="map"></div>
 
-    <!-- FOOTER -->
-    <footer id="footer">
-        <div class="row-fluid">
-            <div class="span5">
-                <h3>Contact Information</h3>
-                <p><b>Office Hours:</b> Mon-Fri (8am-5pm)</p>
-                <p><b>Phone:</b> (+233) 20-087-6117</p>
-                <p><b>Cell:</b> (+233) 55-056-3536</p>
-                <a href="mailto:eyilimoan48@gmail.com">Email</a>
-            </div>
-            <div class="span2">
-                <img src="images/lablogo.png" alt="Lab Logo">
-            </div>
-            <div class="span5">
-                <h3>Climate and Health Lab</h3>
-                <p>Casley Hayford<br>ROOM 432<br>KNUST, Kumasi<br>Ghana</p>
-                <a href="https://www.google.com/maps/place/Casely+-+Hayford+Building/@6.6756608,-1.5703021,17z">Show Map</a>
-            </div>
-        </div>
-    </footer>
+<div class="map-legend">
+<div class="legend">
+<div class="legend-item"><div class="legend-color risk-safe"></div>Safe</div>
+<div class="legend-item"><div class="legend-color risk-caution"></div>Caution</div>
+<div class="legend-item"><div class="legend-color risk-extreme-caution"></div>Extreme Caution</div>
+<div class="legend-item"><div class="legend-color risk-danger"></div>Danger</div>
+<div class="legend-item"><div class="legend-color risk-extreme-danger"></div>Extreme Danger</div>
+</div>
+</div>
 
 </div>
 
-<!-- Scripts -->
-<script>
-  document.getElementById("date").innerHTML = new Date().toDateString();
-</script>
+<aside class="panel">
 
-<script src="js/jquery-1.9.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<div class="panel-topbar">
+<div class="tabs">
+<div class="tab active" onclick="setMode('mean',this)">Mean</div>
+<div class="tab" onclick="setMode('max',this)">Max</div>
+<div class="tab" onclick="setMode('min',this)">Min</div>
+</div>
+</div>
 
+<div id="panelDefault">Click a region</div>
+
+<div id="trendSection" class="hidden">
+
+<div class="chart-grid">
+
+<div class="chart-card">
+<h3>🕒 Today's Hourly Mean Heat Curve</h3>
+<canvas id="hourlyChart"></canvas>
+</div>
+
+<div class="chart-card">
+<h3 id="fiveDayTitle">📊 5-Day Forecast</h3>
+<canvas id="trendChart"></canvas>
+</div>
+
+</div>
+
+</div>
+
+<div id="forecastCard" class="hidden">
+
+<h2 id="cardRegion"></h2>
+<div id="riskBadge" class="risk-badge"></div>
+
+<p>🌡️ Baseline: <b id="tempBaseline"></b>°C</p>
+<p>🔥 Forecast: <b id="tempForecast"></b>°C</p>
+
+<div class="heat-bar">
+<div id="heatFill" class="heat-fill"></div>
+</div>
+
+<div id="heatLabel"></div>
+
+<div class="info-grid">
+<div class="effect-box">
+<b>⚠️ Effect on Body</b>
+<p id="effectText"></p>
+</div>
+
+<div class="advice-box">
+<b>🚨 Public Health Advice</b>
+<p id="adviceText"></p>
+</div>
+</div>
+
+</div>
+
+</aside>
+
+</div>
+</div>
+
+<hr>
+
+<footer id="footer">
+<div class="row-fluid">
+<div class="span5">
+<h3>Contact Information</h3>
+<p><b>Office Hours:</b> Mon-Fri (8am-5pm)</p>
+<p><b>Phone:</b> (+233) 20-087-6117</p>
+</div>
+
+<div class="span2">
+<img src="images/lablogo.png">
+</div>
+
+<div class="span5">
+<h3>Climate and Health Lab</h3>
+<p>KNUST, Kumasi, Ghana</p>
+</div>
+</div>
+</footer>
+
+</div>
+
+<script src="forecast.js"></script>
 </body>
 </html>
