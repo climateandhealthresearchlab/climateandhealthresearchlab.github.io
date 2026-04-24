@@ -1,55 +1,86 @@
-/* =========================
-   forecast.css 
-   ========================= */
+/* forecast.css */
 
 body{
 font-family:'DM Sans',sans-serif;
-background:#fff;
+background:#0c0c0c;
+color:#eee;
+margin:0;
+padding:0;
 }
 
+/* HEADER IMAGE */
 .header-image{
 width:100%;
+display:block;
 }
 
+/* MAIN TITLE BAR */
 .forecast-header{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:10px 0 15px 0;
+padding:14px 0 18px 0;
+border-bottom:1px solid #ddd;
+margin-bottom:18px;
 }
 
-.left{
+.header-left{
 display:flex;
-gap:10px;
+gap:12px;
 align-items:center;
 }
 
 .badge-lab{
 background:#ef4444;
 color:#fff;
-padding:6px 10px;
+padding:7px 12px;
 font-weight:700;
 border-radius:4px;
+font-size:14px;
 }
 
 .title-main{
 font-family:'Bebas Neue',sans-serif;
-font-size:28px;
+font-size:30px;
+letter-spacing:.8px;
+line-height:1;
 }
 
-.right-live{
-font-size:14px;
+.subtitle{
+font-size:12px;
+color:#666;
+margin-top:3px;
+}
+
+.header-right{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.live-box{
+background:#111;
+color:#22c55e;
+padding:7px 12px;
+border-radius:20px;
+font-size:12px;
+font-weight:700;
+}
+
+.clock{
+font-size:13px;
 font-weight:600;
+color:#444;
 }
 
 .pulse{
 display:inline-block;
-width:10px;
-height:10px;
+width:8px;
+height:8px;
 background:#22c55e;
 border-radius:50%;
+margin-right:6px;
 animation:pulse 1s infinite;
-margin-right:5px;
 }
 
 @keyframes pulse{
@@ -58,41 +89,35 @@ margin-right:5px;
 100%{opacity:1;}
 }
 
+/* LAYOUT */
 .dashboard{
 display:grid;
-grid-template-columns:38% 62%;
+grid-template-columns:35% 65%;
 gap:20px;
+margin-bottom:30px;
 }
 
-/* =========================
-   MAP SIDE
-========================= */
-
-.map-side{
-display:flex;
-flex-direction:column;
+/* MAP */
+#map{
+height:720px;
+border-radius:12px;
+overflow:hidden;
+background:#0b1e3a;
+box-shadow:0 10px 25px rgba(0,0,0,.18);
 }
 
-/* LEGEND NOW MOVED UP */
 .legend{
 background:#111;
 color:#fff;
 padding:12px;
-margin-bottom:10px;   /* moved above map */
+margin-top:10px;
 display:flex;
 flex-wrap:wrap;
-gap:10px;
+gap:12px;
 font-size:12px;
-border-radius:8px;
-order:-1;
-}
-
-#map{
-height:720px;
 border-radius:10px;
 }
 
-/* LEGEND BOXES */
 .c{
 width:12px;
 height:12px;
@@ -101,47 +126,76 @@ border-radius:3px;
 margin-right:5px;
 }
 
-/* EXACT COLORS MATCHING COMPUTED RISK */
 .safe{background:#22c55e;}
 .caution{background:#eab308;}
 .ecaution{background:#f97316;}
 .danger{background:#dc2626;}
 .edanger{background:#7f1d1d;}
 
-/* =========================
-   PANEL
-========================= */
+/* PANEL */
+.panel{
+background:#111;
+padding:18px;
+border-radius:12px;
+box-shadow:0 12px 28px rgba(0,0,0,.25);
+min-height:720px;
+}
 
+/* TABS */
 .tabs{
 display:flex;
 gap:8px;
-margin-bottom:12px;
+margin-bottom:14px;
 }
 
 .tab{
-padding:7px 12px;
-background:#ddd;
+padding:8px 14px;
+background:#1f2937;
+color:#fff;
+border-radius:6px;
 cursor:pointer;
-border-radius:5px;
 font-weight:600;
+font-size:13px;
+transition:.25s;
+}
+
+.tab:hover{
+background:#334155;
 }
 
 .tab.active{
 background:#3b82f6;
-color:#fff;
 }
 
+/* DEFAULT */
 .default-panel{
-padding:30px;
-background:#f5f5f5;
-border-radius:10px;
+padding:60px 20px;
 text-align:center;
+background:#181818;
+border-radius:10px;
+border:1px solid #222;
 }
 
-.hidden{
-display:none;
+.default-icon{
+font-size:42px;
+margin-bottom:14px;
 }
 
+.default-title{
+font-size:22px;
+font-weight:700;
+margin-bottom:8px;
+}
+
+.default-text{
+font-size:14px;
+color:#aaa;
+line-height:1.6;
+max-width:340px;
+margin:auto;
+}
+
+/* CHARTS */
 .charts{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -149,33 +203,48 @@ gap:15px;
 }
 
 .chart-box{
-background:#111;
-padding:10px;
-border-radius:10px;
-color:#fff;
+background:#181818;
+padding:12px;
+border-radius:12px;
+border:1px solid #222;
+}
+
+.chart-box h3{
+font-size:15px;
+margin:0 0 10px 0;
+font-weight:700;
 }
 
 canvas{
+width:100% !important;
 height:220px !important;
 }
 
+/* CARD */
 .card-box{
 margin-top:15px;
-background:#111;
-padding:15px;
-color:#fff;
-border-radius:10px;
+background:#181818;
+padding:18px;
+border-radius:12px;
+border:1px solid #222;
+}
+
+.card-box h2{
+margin:0 0 10px 0;
+font-size:26px;
+font-family:'Bebas Neue',sans-serif;
+letter-spacing:.5px;
 }
 
 .risk-badge{
-padding:6px 12px;
-border-radius:6px;
+padding:7px 14px;
+border-radius:8px;
 font-weight:700;
 display:inline-block;
-margin-bottom:10px;
+margin-bottom:12px;
+font-size:13px;
 }
 
-/* Risk Badge Colors */
 .risk-safe{
 background:#22c55e22;
 color:#22c55e;
@@ -197,41 +266,59 @@ color:#dc2626;
 }
 
 .risk-extreme-danger{
-background:#7f1d1d;
-color:#fff;
+background:#7f1d1d55;
+color:#ffb4b4;
 }
 
+/* BAR */
 .bar{
 height:8px;
 background:#333;
-border-radius:5px;
-margin:10px 0;
+border-radius:6px;
+margin:12px 0;
+overflow:hidden;
 }
 
 #fillBar{
 height:100%;
 width:0%;
-border-radius:5px;
-transition:.4s;
+border-radius:6px;
+transition:.7s;
+background:linear-gradient(90deg,#f97316,#ef4444);
 }
 
+#deltaText{
+font-size:13px;
+color:#ccc;
+margin-bottom:14px;
+}
+
+/* INFO */
 .info-grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:10px;
+gap:12px;
 margin-top:10px;
 }
 
 .box{
 background:#222;
-padding:10px;
-border-radius:8px;
+padding:12px;
+border-radius:10px;
+font-size:13px;
+line-height:1.55;
 }
 
 .red{
 background:#4b0000;
 }
 
+/* UTIL */
+.hidden{
+display:none !important;
+}
+
+/* MOBILE */
 @media(max-width:1100px){
 
 .dashboard{
@@ -239,11 +326,21 @@ grid-template-columns:1fr;
 }
 
 #map{
-height:450px;
+height:440px;
+}
+
+.panel{
+min-height:auto;
 }
 
 .charts{
 grid-template-columns:1fr;
+}
+
+.forecast-header{
+flex-direction:column;
+align-items:flex-start;
+gap:10px;
 }
 
 }
