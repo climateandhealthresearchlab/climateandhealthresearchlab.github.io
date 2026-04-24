@@ -1,26 +1,18 @@
-<!-- forecast.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>Forecast | Climate & Health Research Lab</title>
+<title>Forecast - Climate And Health Research Lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="icon" type="image/png" href="images/lablogo.png">
 
-<!-- Existing Site Theme -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-<link rel="stylesheet" href="css/theme.css">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/theme.css" rel="stylesheet">
 
-<!-- Dashboard Fonts -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-<!-- Leaflet -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
-
-<!-- Dashboard CSS -->
 <link rel="stylesheet" href="css/forecast.css">
 </head>
 
@@ -28,7 +20,7 @@
 
 <div class="container">
 
-<!-- SITE HEADER -->
+<!-- ===== KEEP YOUR HEADER ===== -->
 <header class="page-header">
 <img src="images/heading.jpg" class="header-image">
 </header>
@@ -46,7 +38,7 @@
 <li><a href="news.html">News</a></li>
 <li><a href="teaching.html">DataHub</a></li>
 <li><a href="join.html">Join Us</a></li>
-<li class="active"><a href="forecast.html">Forecast</a></li>
+<li class="active"><a href="#">Forecast</a></li>
 </ul>
 </div>
 </div>
@@ -55,24 +47,21 @@
 
 <hr>
 
+<!-- ===== ORIGINAL DASHBOARD HEADER ===== -->
+<div class="forecast-header">
+<div class="left">
+<div class="badge-lab">CHRL</div>
+<div class="title-main">HEAT HEALTH EARLY WARNING SYSTEM</div>
 </div>
 
-<!-- DASHBOARD -->
-<section class="forecast-wrap">
-
-<header class="site-header">
-<div class="header-left">
-<div class="lab-badge">CHRL</div>
-<div class="page-title">HEAT HEALTH EARLY WARNING SYSTEM</div>
-</div>
-
-<div class="header-right">
-<span class="pulse-dot"></span>
+<div class="right-live">
+<span class="pulse"></span>
 LIVE FORECAST
 <span id="datetime"></span>
 </div>
-</header>
+</div>
 
+<!-- ===== ORIGINAL LAYOUT ===== -->
 <div class="main">
 
 <!-- LEFT -->
@@ -95,9 +84,9 @@ LIVE FORECAST
 
 <div class="panel-topbar">
 <div class="tabs">
-<div class="tab active" onclick="setMode('mean',this)">Mean</div>
-<div class="tab" onclick="setMode('max',this)">Max</div>
-<div class="tab" onclick="setMode('min',this)">Min</div>
+<div class="tab active" onclick="setMode('mean', this)">Mean</div>
+<div class="tab" onclick="setMode('max', this)">Max</div>
+<div class="tab" onclick="setMode('min', this)">Min</div>
 </div>
 </div>
 
@@ -107,7 +96,7 @@ LIVE FORECAST
 <div class="chart-grid">
 
 <div class="chart-card">
-<h3 id="hourlyTitle">🕒 Today's Hourly Mean Heat Curve</h3>
+<h3>🕒 Today's Hourly Mean Heat Curve</h3>
 <canvas id="hourlyChart"></canvas>
 </div>
 
@@ -122,7 +111,6 @@ LIVE FORECAST
 <div id="forecastCard" class="hidden">
 
 <h2 id="cardRegion"></h2>
-
 <div id="riskBadge" class="risk-badge"></div>
 
 <p>🌡️ Baseline: <b id="tempBaseline"></b>°C</p>
@@ -135,7 +123,6 @@ LIVE FORECAST
 <div id="heatLabel"></div>
 
 <div class="info-grid">
-
 <div class="effect-box">
 <b>⚠️ Effect on Body</b>
 <p id="effectText"></p>
@@ -145,23 +132,17 @@ LIVE FORECAST
 <b>🚨 Public Health Advice</b>
 <p id="adviceText"></p>
 </div>
-
 </div>
 
 </div>
 
 </aside>
+</div>
 
 </div>
 
-</section>
-
-<script src="js/jquery-1.9.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script src="js/forecast.js"></script>
 
 </body>
