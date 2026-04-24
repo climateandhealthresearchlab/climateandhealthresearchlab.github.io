@@ -1,13 +1,16 @@
+<!-- forecast.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Forecast - Climate And Health Research Lab</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Forecast - Climate And Health Research Lab</title>
 
 <link rel="icon" type="image/png" href="images/lablogo.png">
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 <link href="css/theme.css" rel="stylesheet">
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
@@ -20,15 +23,17 @@
 
 <div class="container">
 
-<!-- ===== KEEP YOUR HEADER ===== -->
+<!-- TOP HEADER -->
 <header class="page-header">
 <img src="images/heading.jpg" class="header-image">
 </header>
 
+<!-- NAVBAR -->
 <div class="masthead">
 <div class="navbar">
 <div class="navbar-inner">
 <div class="container">
+
 <ul class="nav">
 <li><a href="index.html">Home</a></li>
 <li><a href="people.html">People</a></li>
@@ -40,6 +45,7 @@
 <li><a href="join.html">Join Us</a></li>
 <li class="active"><a href="#">Forecast</a></li>
 </ul>
+
 </div>
 </div>
 </div>
@@ -47,102 +53,131 @@
 
 <hr>
 
-<!-- ===== ORIGINAL DASHBOARD HEADER ===== -->
+<!-- DASHBOARD HEADER -->
 <div class="forecast-header">
-<div class="left">
+
+<div class="header-left">
 <div class="badge-lab">CHRL</div>
+
+<div>
 <div class="title-main">HEAT HEALTH EARLY WARNING SYSTEM</div>
+<div class="subtitle">Climate & Health Research Lab</div>
+</div>
 </div>
 
-<div class="right-live">
+<div class="header-right">
+<div class="live-box">
 <span class="pulse"></span>
 LIVE FORECAST
-<span id="datetime"></span>
-</div>
 </div>
 
-<!-- ===== ORIGINAL LAYOUT ===== -->
-<div class="main">
+<div id="datetime" class="clock"></div>
+</div>
 
-<!-- LEFT -->
+</div>
+
+<!-- MAIN DASHBOARD -->
+<div class="dashboard">
+
+<!-- LEFT MAP -->
 <div class="map-side">
+
 <div id="map"></div>
 
-<div class="map-legend">
 <div class="legend">
-<div class="legend-item"><div class="legend-color risk-safe"></div>Safe</div>
-<div class="legend-item"><div class="legend-color risk-caution"></div>Caution</div>
-<div class="legend-item"><div class="legend-color risk-extreme-caution"></div>Extreme Caution</div>
-<div class="legend-item"><div class="legend-color risk-danger"></div>Danger</div>
-<div class="legend-item"><div class="legend-color risk-extreme-danger"></div>Extreme Danger</div>
-</div>
-</div>
+
+<div><span class="c safe"></span>Safe</div>
+<div><span class="c caution"></span>Caution</div>
+<div><span class="c ecaution"></span>Extreme Caution</div>
+<div><span class="c danger"></span>Danger</div>
+<div><span class="c edanger"></span>Extreme Danger</div>
+
 </div>
 
-<!-- RIGHT -->
-<aside class="panel">
+</div>
 
-<div class="panel-topbar">
+<!-- RIGHT PANEL -->
+<div class="panel">
+
+<!-- MODE SWITCH -->
 <div class="tabs">
-<div class="tab active" onclick="setMode('mean', this)">Mean</div>
-<div class="tab" onclick="setMode('max', this)">Max</div>
-<div class="tab" onclick="setMode('min', this)">Min</div>
+<div class="tab active" onclick="setMode('mean',this)">Mean</div>
+<div class="tab" onclick="setMode('max',this)">Max</div>
+<div class="tab" onclick="setMode('min',this)">Min</div>
+</div>
+
+<!-- DEFAULT -->
+<div id="panelDefault" class="default-panel">
+<div class="default-icon">🌍</div>
+<div class="default-title">Click a Region</div>
+<div class="default-text">
+Select any Ghana region on the map to view
+heat health forecast conditions.
 </div>
 </div>
 
-<div id="panelDefault">Click a region</div>
+<!-- CONTENT -->
+<div id="contentPanel" class="hidden">
 
-<div id="trendSection" class="hidden">
-<div class="chart-grid">
+<!-- CHARTS -->
+<div class="charts">
 
-<div class="chart-card">
-<h3>🕒 Today's Hourly Mean Heat Curve</h3>
+<div class="chart-box">
+<h3 id="hourlyTitle">🕒 Today's Hourly Mean Heat Curve</h3>
 <canvas id="hourlyChart"></canvas>
 </div>
 
-<div class="chart-card">
-<h3 id="fiveDayTitle">📊 5-Day Forecast</h3>
-<canvas id="trendChart"></canvas>
+<div class="chart-box">
+<h3 id="dailyTitle">📊 5-Day Forecast</h3>
+<canvas id="dailyChart"></canvas>
 </div>
 
 </div>
-</div>
 
-<div id="forecastCard" class="hidden">
+<!-- CARD -->
+<div class="card-box">
 
-<h2 id="cardRegion"></h2>
+<h2 id="regionName"></h2>
+
 <div id="riskBadge" class="risk-badge"></div>
 
-<p>🌡️ Baseline: <b id="tempBaseline"></b>°C</p>
-<p>🔥 Forecast: <b id="tempForecast"></b>°C</p>
+<p>🌡️ Baseline: <b id="baseline"></b> °C</p>
+<p>🔥 Forecast: <b id="forecast"></b> °C</p>
 
-<div class="heat-bar">
-<div id="heatFill" class="heat-fill"></div>
+<div class="bar">
+<div id="fillBar"></div>
 </div>
 
-<div id="heatLabel"></div>
+<p id="deltaText"></p>
 
 <div class="info-grid">
-<div class="effect-box">
+
+<div class="box">
 <b>⚠️ Effect on Body</b>
-<p id="effectText"></p>
+<p id="health"></p>
 </div>
 
-<div class="advice-box">
-<b>🚨 Public Health Advice</b>
-<p id="adviceText"></p>
-</div>
-</div>
-
-</div>
-
-</aside>
+<div class="box red">
+<b>🚨 Public Advice</b>
+<p id="advice"></p>
 </div>
 
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script src="js/forecast.js"></script>
 
 </body>
