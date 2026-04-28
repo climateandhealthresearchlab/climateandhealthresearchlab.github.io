@@ -33,11 +33,37 @@
       .skiptranslate { display: none !important; }
       .goog-te-banner-frame { display: none !important; }
 
-      /* Main content spacing */
-      .span8.offset1 { margin-left: 360px !important; }
+      /* ── Sidebar fix ── */
+      /* Remove Bootstrap's offset so the grid stays intact */
+      .span8.offset1 {
+        margin-left: 0 !important;
+      }
 
-      /* Prevent anchor overlap */
-      section { padding-top: 80px; margin-top: -80px; }
+      /* Affix sidebar: sits in its natural span3 column */
+      .bs-docs-sidebar {
+        position: relative;
+      }
+      .bs-docs-sidebar .nav-list {
+        padding: 0;
+      }
+      .bs-docs-sidebar .nav-list > li > a {
+        padding: 6px 14px;
+        border-radius: 4px;
+        color: var(--text-color);
+        display: block;
+      }
+      .bs-docs-sidebar .nav-list > li > a:hover,
+      .bs-docs-sidebar .nav-list > li.active > a {
+        background-color: #f0ad4e;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      /* Section offset so the fixed navbar doesn't cover headings */
+      section[id] {
+        padding-top: 70px;
+        margin-top: -70px;
+      }
 
       .join-box {
         background: var(--secondary-bg);
@@ -88,7 +114,7 @@
 
 <body>
 
-    <!-- Google Translate engine (reads googtrans cookie set on index.html) -->
+    <!-- Google Translate engine -->
     <div id="google_translate_element" style="display:none;"></div>
     <script type="text/javascript">
       function googleTranslateElementInit() {
@@ -101,7 +127,6 @@
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script>
-      // Suppress Google Translate top bar
       window.addEventListener('load', function() {
         var style = document.createElement('style');
         style.innerHTML = 'body { top: 0 !important; } .skiptranslate { display: none !important; }';
@@ -139,6 +164,7 @@
         <hr>
 
         <div class="row-fluid">
+
             <!-- Sidebar -->
             <div class="span3 bs-docs-sidebar" id="navparent">
                 <ul class="nav nav-list bs-docs-sidenav"
@@ -154,7 +180,7 @@
             </div>
 
             <!-- Main Content -->
-            <div class="span8 offset1">
+            <div class="span9">
 
                 <section id="why">
                     <div class="page-header">
@@ -216,7 +242,7 @@
                     </div>
                 </section>
 
-                <!-- ===== CONTACT SECTION (merged from contact.html) ===== -->
+                <!-- Contact Section -->
                 <section id="contact">
                     <div class="page-header">
                         <h3>Get in Touch</h3>
@@ -245,7 +271,6 @@
                         </div>
                     </div>
                 </section>
-                <!-- ===== END CONTACT SECTION ===== -->
 
             </div>
         </div>
@@ -279,7 +304,25 @@
     <script src="js/bootstrap.min.js"></script>
     <script>
       $(document).ready(function() {
-        $(document.body).scrollspy({ target: "#navparent" });
+        // Scrollspy
+        $(document.body).scrollspy({ target: "#navparent", offset: 80 });
+
+        // Manually highlight active sidebar link on scroll
+        $(window).on('scroll', function() {
+          var scrollPos = $(document).scrollTop();
+          $('#navparent .nav-list li a').each(function() {
+            var currLink = $(this);
+            var refElement = $(currLink.attr('href'));
+            if (refElement.length) {
+              var top = refElement.offset().top - 90;
+              var bottom = top + refElement.outerHeight();
+              if (scrollPos >= top && scrollPos < bottom) {
+                $('#navparent .nav-list li').removeClass('active');
+                currLink.parent().addClass('active');
+              }
+            }
+          });
+        });
       });
     </script>
 
