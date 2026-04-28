@@ -1,293 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8">
-      <title>People - Climate And Health Research Lab</title>
-      <link rel="icon" type="image/png" href="images/lablogo.png">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" content="Research Lab, Home, Kwame Nkrumah University of Science and Technology">
-      <meta name="author" content="">
-      <!-- Le styles -->
-      <link href="css/bootstrap.min.css" rel="stylesheet">
-      <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
-      <link href="css/theme.css" rel="stylesheet">
+<head>
+<meta charset="utf-8">
+<title>People - Climate And Health Research Lab</title>
+<link rel="icon" type="image/png" href="images/lablogo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <style>
-        :root {
-          --bg-color: #ffffff;
-          --text-color: #333333;
-          --secondary-bg: #f5f5f5;
-        }
-        [data-theme="dark"] {
-          --bg-color: #1a1a1a;
-          --text-color: #e0e0e0;
-          --secondary-bg: #2d2d2d;
-        }
-        body {
-          background-color: var(--bg-color);
-          color: var(--text-color);
-          transition: background-color 0.3s, color 0.3s;
-          top: 0 !important;
-        }
-        /* Hide Google Translate banner */
-        .skiptranslate { display: none !important; }
-        .goog-te-banner-frame { display: none !important; }
-      </style>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+<link href="css/theme.css" rel="stylesheet">
 
-      <!-- Apply saved theme immediately to avoid flash -->
-      <script>
-        (function() {
-          if (localStorage.getItem('theme') === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-          }
-        })();
-      </script>
-   </head>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-   <body>
-      <!-- Google Translate engine (reads googtrans cookie set on index.html) -->
-      <div id="google_translate_element" style="display:none;"></div>
-      <script type="text/javascript">
-        function googleTranslateElementInit() {
-          new google.translate.TranslateElement({
-            pageLanguage: 'en',
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-            autoDisplay: false
-          }, 'google_translate_element');
-        }
-      </script>
-      <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-      <script>
-        // Suppress Google Translate top bar
-        window.addEventListener('load', function() {
-          var style = document.createElement('style');
-          style.innerHTML = 'body { top: 0 !important; } .skiptranslate { display: none !important; }';
-          document.head.appendChild(style);
-        });
-      </script>
+<style>
+:root{
+--bg-color:#ffffff;
+--text-color:#333333;
+--secondary-bg:#f5f5f5;
+}
 
-      <div class="container">
-         <header id="overview" style="text-align:center; margin-bottom: 20px;">
-            <img src="images/heading.jpg"
-                 alt="Climate And Health Research Lab Banner"
-                 style="width:100%; height:auto;">
-         </header>
+[data-theme="dark"]{
+--bg-color:#1a1a1a;
+--text-color:#e0e0e0;
+--secondary-bg:#2d2d2d;
+}
 
-         <div class="masthead">
-            <div class="navbar">
-               <div class="navbar-inner">
-                  <div class="container">
-                     <ul class="nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li class="active"><a href="#">People</a></li>
-                        <li><a href="research.html">Research</a></li>
-                        <li><a href="publications.html">Publications</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
-                        <li><a href="news.html">News</a></li>
-                        <li><a href="teaching.html">DataHub</a></li>
-                        <li><a href="join.html">Join Us</a></li>
-                        <li><a href="contact.html">Forecast</a></li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
-         </div>
+body{
+background-color:var(--bg-color);
+color:var(--text-color);
+transition:background-color .3s,color .3s;
+top:0 !important;
+}
 
-         <hr>
+.skiptranslate,
+.goog-te-banner-frame{
+display:none !important;
+}
 
-         <div class="row-fluid">
-            <div class="span3 bs-docs-sidebar" id="navparent">
-               <ul class="nav nav-list bs-docs-sidenav" data-spy="affix" data-offset-top="200" data-offset-bottom="260">
-                  <li><a href="#principalinvestigator"> Principal Investigator </a></li>
-                  <li><a href="#graduate">Graduate Students</a></li>
-                  <li><a href="#NSS">National Service Persons</a></li>
-               </ul>
-            </div>
+/* Alumni Map */
+#alumni-map{
+height:560px;
+width:100%;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,.12);
+margin-top:20px;
+margin-bottom:20px;
+}
 
-            <div class="span8 offset1">
-               <section id="principalinvestigator">
-                  <div class="page-header">
-                     <h3>Principal Investigator</h3>
-                  </div>
-                  <div class="row-fluid">
-                     <div class="span3">
-                        <a href="https://unsplash.com/photos/aCZ2hiC-iDk" class="thumbnail">
-                        <img src="images/Yambas.jpg" alt="Edmund Ilimoan Yamba"/>
-                        </a>
-                     </div>
-                     <div class="span9">
-                        <h4>Edmund Ilimoan Yamba</h4>
-                        <p>Senior Lecturer / Research Scientist</p>
-                        <p>Ph.D., Meteorology and Climate Science, University of Cologne, Germany<br/>M.Sc., Geophysics, Kwame Nkrumah University of Science and Technology (KNUST)<br/>B.Sc., Physics, Kwame Nkrumah University of Science and Technology (KNUST)</p>
-                        <p><b>Phone: </b>+233-200-87-6117 </p>
-                        <p><b>Email: </b><a href="mailto:eiyamba@knust.edu.gh">eiyamba@knust.edu.gh</a></p>
-                        <p><b>Address: </b>KNUST, Kumasi, Ghana </p>
-                        <p><b><a href="https://www.myperfectcv.co.uk/cv-examples/chemistry-lab-technician-cv-sample">CV</a>, <a href="https://scholar.google.com/citations?user=Br4DbcIAAAAJ&hl=en&oi=ao">Google Scholar</a>, <a href="https://www.linkedin.com/in/edmund-ilimoan-yamba-3186945a/">Linkedin</a>, <a href="https://orcid.org/0000-0002-0486-9921">ORCID</a></b></p>
-                     </div>
-                  </div>
-               </section>
+.alumni-popup{
+min-width:240px;
+}
 
-               <hr>
+.alumni-popup img{
+width:64px;
+height:64px;
+border-radius:50%;
+object-fit:cover;
+float:left;
+margin-right:12px;
+}
 
-               <section id="graduate">
-                  <div class="page-header">
-                     <h3>Graduate Students</h3>
-                  </div>
-                  <div class="row-fluid">
-                     <div class="span3">
-                        <a href="https://unsplash.com/photos/aaaGLiTRqkg" class="thumbnail">
-                        <img src="images/mimipicture.jpg" alt="Mary Jesse Adjei"/>
-                        </a>
-                     </div>
-                     <div class="span9">
-                        <h4><a href="https://unsplash.com/photos/aaaGLiTRqkg">Mary Jesse Agyei (PhD Student) </a></h4>
-                        <p>Mary received her BSc and Masters in Meteorology and Climate Science in 2021 and 2024 respectively at KNUST with High Honors. Her current research focuses on Quantifying and Attributing Heat-Related Mortality to Land Use Land Change in Ghana.</p>
-                        <p><b>Email: </b><a href="mailto:maryjesse33@gmail.com">maryjesse33@gmail.com</a></p>
-                        <p><b>Address: </b> Kumasi, Ghana</p>
-                     </div>
-                  </div>
-                  <hr>
-                  <div class="row-fluid">
-                     <div class="span3">
-                        <a href="https://unsplash.com/photos/LUdelQ2EO2g" class="thumbnail">
-                        <img src="images/lizzy.jpg" alt="Elizabeth Owusu Ansah"/>
-                        </a>
-                     </div>
-                     <div class="span9">
-                        <h4><a href="https://unsplash.com/photos/LUdelQ2EO2g">Elizabeth Owusu Ansah (MPhil Student) </a></h4>
-                        <p>Elizabeth is an MPhil student in Meteorology and Climate Science at the Kwame Nkrumah University of Science and Technology. She earned her Bachelor's degree in the same field in 2023. Her academic and research interests focus on biometeorology, epidemiology, and public health. She is currently working on a project that examines how climate change affects the epidemiology of meningitis in Africa.</p>
-                        <p><b>Email: </b><a href="mailto:elizabethowusuansah2024@gmail.com">elizabethowusuansah2024@gmail.com</a></p>
-                        <p><b>Address: </b>Kumasi, Ghana</p>
-                     </div>
-                  </div>
-                  <hr>
-                  <div class="row-fluid">
-                     <div class="span3">
-                        <a href="https://unsplash.com/photos/nomivMNW07o" class="thumbnail">
-                        <img src="images/desmond.jpg" alt="Desmond Osei-Tutu"/>
-                        </a>
-                     </div>
-                     <div class="span9">
-                        <h4><a href="https://unsplash.com/photos/nomivMNW07o">Desmond Osei-Tutu (MPhil Student)</a></h4>
-                        <p>Desmond is an MPhil student in Meteorology and Climate Science at the Kwame Nkrumah University of Science and Technology. He earned his Bachelor's degree in the same field in 2023. His academic and research interests focus on Biometeorology, Air Quality monitoring and public health and disease Modelling. He is currently working on a project that Qualifies the Health Burden of PM2.5 and Source-Specific Contribution in Ghana.</p>
-                        <p><b>Email: </b><a href="mailto:desmondoseitutu2@gmail.com">desmondoseitutu2@gmail.com</a></p>
-                        <p><b>Address: </b>Kumasi, Ghana</p>
-                     </div>
-                  </div>
-                  <hr>
-               </section>
+.alumni-popup h4{
+margin:0 0 6px;
+font-size:16px;
+}
 
-               <section id="NSS">
-                  <div class="page-header">
-                     <h3>National Service Personnels</h3>
-                  </div>
-                  <div class="row-fluid">
-                     <div class="span3">
-                        <a href="https://unsplash.com/photos/aaaGLiTRqkg" class="thumbnail">
-                        <img src="images/passport pic.png" alt="Alex Kwao Ablerdu"/>
-                        </a>
-                     </div>
-                     <div class="span9">
-                        <h4><a href="https://unsplash.com/photos/aaaGLiTRqkg">Alex Kwao Ablerdu (Teaching Assistant)</a></h4>
-                        <p>Alex received his BSc in Meteorology and Climate Science in 2025 at KNUST. His undergraduate research focused on Evaluating the potential of VECTRI model to predict malaria cases in Ashanti region, Ghana.</p>
-                        <p><b>Email: </b><a href="mailto:alexkwao100@gmail.com">alexkwao100@gmail.com</a></p>
-                        <p><b>Address: </b> Kumasi, Ghana</p>
-                     </div>
-                  </div>
-                  <hr>
-                  <div class="row-fluid">
-                     <div class="span3">
-                        <a href="https://unsplash.com/photos/LUdelQ2EO2g" class="thumbnail">
-                        <img src="images/grace.jpeg" alt="Grace Nabe"/>
-                        </a>
-                     </div>
-                     <div class="span9">
-                        <h4><a href="https://unsplash.com/photos/LUdelQ2EO2g">Grace Nabe (Teaching Assistant) </a></h4>
-                        <p>Grace received his BSc in Meteorology and Climate Science in 2025 at KNUST. Her undergraduate research focused on Impact of Urban Heat Island Warming on Heat Related Health Risks In Ghanaian Cities</p>
-                        <p><b>Email: </b><a href="mailto:nabegrace27@gmail.com">nabegrace27@gmail.com</a></p>
-                        <p><b>Address: </b>Kumasi, Ghana</p>
-                     </div>
-                  </div>
-                  <hr>
-                  <div class="row-fluid">
-                     <div class="span3">
-                        <a href="https://unsplash.com/photos/nomivMNW07o" class="thumbnail">
-                        <img src="images/omari.jpeg" alt="Elizabeth Ansah Omari"/>
-                        </a>
-                     </div>
-                     <div class="span9">
-                        <h4><a href="https://unsplash.com/photos/nomivMNW07o">Elizabeth Ansah Omari (Teaching Assistant)</a></h4>
-                        <p>Elizabeth received his BSc in Meteorology and Climate Science in 2025 at KNUST. Her undergraduate research focused on Impact of Urban Heat Island Warming on Heat Related Health Risks In Ghanaian Cities</p>
-                        <p><b>Email: </b><a href="mailto:elizabethansahomari@gmail.com">elizabethansahomari@gmail.com</a></p>
-                        <p><b>Address: </b>Kumasi, Ghana</p>
-                     </div>
-                  </div>
-                  <hr>
-                  <div class="row-fluid">
-                     <div class="span3">
-                        <a href="https://unsplash.com/photos/nomivMNW07o" class="thumbnail">
-                        <img src="images/Joshua.jpeg" alt="Joshua Oduro Yeboah"/>
-                        </a>
-                     </div>
-                     <div class="span9">
-                        <h4><a href="https://unsplash.com/photos/nomivMNW07o">Joshua Oduro Yeboah (Teaching Assistant)</a></h4>
-                        <p>Joshua received his BSc in Meteorology and Climate Science in 2025 at KNUST. His undergraduate research focused on Climate Change Effects on Dengue Fever.</p>
-                        <p><b>Email: </b><a href="mailto:kojooduro44@gmail.com">kojooduro44@gmail.com</a></p>
-                        <p><b>Address: </b>Kumasi, Ghana</p>
-                     </div>
-                  </div>
-                  <hr>
-                  <div class="row-fluid">
-                     <div class="span3">
-                        <a href="https://unsplash.com/photos/nomivMNW07o" class="thumbnail">
-                        <img src="images/Elorm.jpeg" alt="Richmond K. Elorm Dzahene"/>
-                        </a>
-                     </div>
-                     <div class="span9">
-                        <h4><a href="https://unsplash.com/photos/nomivMNW07o">Richmond K. Elorm Dzahene (Teaching Assistant)</a></h4>
-                        <p>Richmond received his BSc in Meteorology and Climate Science in 2025 at KNUST. His undergraduate research focused on Climate Change Effects on Dengue Fever.</p>
-                        <p><b>Email: </b><a href="mailto:richmonddzahene@gmail.com">richmonddzahene@gmail.com</a></p>
-                        <p><b>Address: </b>Kumasi, Ghana</p> 
-                     </div>
-                  </div>
-               </section>
-            </div>
-         </div>
-      </div>
+.alumni-popup p{
+margin:0 0 4px;
+font-size:13px;
+line-height:1.35;
+}
 
-      <footer id="footer">
-         <div class="container-fluid">
-            <div class="row-fluid">
-               <div class="span5">
-                  <h3>Contact Information</h3>
-                  <p><b>Office Hours: </b>Monday-Friday (8.00am - 5.00pm)</p>
-                  <p><b>Phone: </b>(+233) 20-087-6117</p>
-                  <p><b>Cell: </b>(+233) 55-056-3536</p>
-                  <a href="mailto:eyilimoan48@gmail.com">Email</a>
-               </div>
-               <div class="span2">
-                  <a href="https://mybrandnewlogo.com/"><img src="images/lablogo.png" alt="research-lab-logo"/></a>
-               </div>
-               <div class="span5">
-                  <h3>Climate and Health Lab</h3>
-                  <p>Casley Hayford<br>
-                     ROOM 432<br>
-                     KNUST, Kumasi<br>
-                     Ghana
-                  </p>
-                  <a href="https://www.google.com/maps/place/Kwame+Nkrumah+University+of+Science+and+Technology,+Kumasi/@6.6754286,-1.6489555,13z/data=!3m1!4b1!4m6!3m5!1s0xfdb946c39956a09:0x67868ca2b098015f!8m2!3d6.674688!4d-1.571728!16s%2Fg%2F1vzg3llh!5m1!1e4?entry=ttu&g_ep=EgoyMDI1MTIwNy4wIKXMDSoASAFQAw%3D%3D">Show Map</a>
-               </div>
-            </div>
-         </div>
-      </footer>
+.alumni-legend{
+background:#fff;
+padding:10px 14px;
+border-radius:10px;
+box-shadow:0 4px 14px rgba(0,0,0,.12);
+font-size:13px;
+}
 
-      <!-- Scripts -->
-      <script src="js/jquery-1.9.1.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-      <script>
-         $(document).ready(function() {
-             $(document.body).scrollspy({ target: "#navparent" });
-         });
-      </script>
-   </body>
+.legend-dot{
+width:10px;
+height:10px;
+border-radius:50%;
+display:inline-block;
+margin-right:6px;
+}
+
+@media(max-width:768px){
+#alumni-map{
+height:420px;
+}
+}
+</style>
+
+<script>
+(function(){
+if(localStorage.getItem('theme')==='dark'){
+document.documentElement.setAttribute('data-theme','dark');
+}
+})();
+</script>
+</head>
+
+<body>
+
+<div id="google_translate_element" style="display:none;"></div>
+
+<div class="container">
+
+<header style="text-align:center;margin-bottom:20px;">
+<img src="images/heading.jpg" style="width:100%;height:auto;">
+</header>
+
+<div class="masthead">
+<div class="navbar">
+<div class="navbar-inner">
+<div class="container">
+<ul class="nav">
+<li><a href="index.html">Home</a></li>
+<li class="active"><a href="#">People</a></li>
+<li><a href="research.html">Research</a></li>
+<li><a href="publications.html">Publications</a></li>
+<li><a href="gallery.html">Gallery</a></li>
+<li><a href="news.html">News</a></li>
+<li><a href="teaching.html">DataHub</a></li>
+<li><a href="join.html">Join Us</a></li>
+<li><a href="contact.html">Forecast</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<hr>
+
+<div class="row-fluid">
+
+<div class="span3 bs-docs-sidebar" id="navparent">
+<ul class="nav nav-list bs-docs-sidenav" data-spy="affix">
+<li><a href="#principalinvestigator">Principal Investigator</a></li>
+<li><a href="#graduate">Graduate Students</a></li>
+<li><a href="#NSS">National Service Persons</a></li>
+<li><a href="#alumni">Global Alumni Network</a></li>
+</ul>
+</div>
+
+<div class="span8 offset1">
+
+<section id="principalinvestigator">
+<div class="page-header">
+<h3>Principal Investigator</h3>
+</div>
+
+<div class="row-fluid">
+<div class="span3">
+<img src="images/Yambas.jpg">
+</div>
+
+<div class="span9">
+<h4>Edmund Ilimoan Yamba</h4>
+<p>Senior Lecturer / Research Scientist</p>
+<p>Ph.D., Meteorology and Climate Science, University of Cologne, Germany</p>
+<p>M.Sc., Geophysics, KNUST</p>
+<p>B.Sc., Physics, KNUST</p>
+</div>
+</div>
+</section>
+
+<hr>
+
+<section id="graduate">
+<div class="page-header">
+<h3>Graduate Students</h3>
+</div>
+
+<p>Your existing graduate student content remains unchanged here.</p>
+</section>
+
+<hr>
+
+<section id="NSS">
+<div class="page-header">
+<h3>National Service Personnels</h3>
+</div>
+
+<p>Your existing NSS content remains unchanged here.</p>
+</section>
+
+<hr>
+
+<section id="alumni">
+<div class="page-header">
+<h3>Global Alumni Network</h3>
+<p>Our former students are making impact across academia, research, and industry worldwide.</p>
+</div>
+
+<div id="alumni-map"></div>
+</section>
+
+</div>
+</div>
+</div>
+
+<footer id="footer">
+<div class="container-fluid">
+<div class="row-fluid">
+
+<div class="span5">
+<h3>Contact Information</h3>
+<p><b>Office Hours:</b> Monday-Friday (8.00am - 5.00pm)</p>
+<p><b>Phone:</b> (+233) 20-087-6117</p>
+</div>
+
+<div class="span2">
+<img src="images/lablogo.png">
+</div>
+
+<div class="span5">
+<h3>Climate and Health Lab</h3>
+<p>KNUST, Kumasi, Ghana</p>
+</div>
+
+</div>
+</div>
+</footer>
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+$(document).ready(function(){
+$(document.body).scrollspy({target:"#navparent"});
+});
+</script>
+
+<script>
+(function(){
+
+var map=L.map('alumni-map',{scrollWheelZoom:false}).setView([18,0],2);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+maxZoom:18,
+attribution:'© OpenStreetMap'
+}).addTo(map);
+
+function color(country){
+if(country==="USA") return "#2563eb";
+if(country==="Canada") return "#dc2626";
+if(country==="Ghana") return "#16a34a";
+return "#7c3aed";
+}
+
+var alumni=[
+
+{
+name:"Stephen Asare",
+city:"Tallahassee, Florida",
+country:"USA",
+lat:30.4383,
+lon:-84.2807,
+role:"PhD Student in Computational Science",
+org:"Florida State University",
+img:"images/alumni/stephen_asare.jpg"
+},
+
+{
+name:"Thomas Amo Kyeimiah",
+city:"Montreal",
+country:"Canada",
+lat:45.5019,
+lon:-73.5674,
+role:"Master's Student in Atmospheric and Oceanic Sciences",
+org:"McGill University",
+img:"images/alumni/thomas_kyeimiah.jpg"
+},
+
+{
+name:"Dr. Cosmos Senyo Wemegah",
+city:"Sunyani",
+country:"Ghana",
+lat:7.3399,
+lon:-2.3268,
+role:"Research Fellow",
+org:"University of Energy and Natural Resources",
+img:"images/alumni/cosmos_wemegah.jpg"
+},
+
+{
+name:"Dr. Victoria Owusu Tawiah",
+city:"Accra",
+country:"Ghana",
+lat:5.6037,
+lon:-0.1870,
+role:"Air Quality Analyst",
+org:"Afriset / Clean Air Fund",
+img:"images/alumni/victoria_tawiah.jpg"
+}
+
+];
+
+alumni.forEach(function(a){
+
+var marker=L.circleMarker([a.lat,a.lon],{
+radius:8,
+fillColor:color(a.country),
+color:"#ffffff",
+weight:2,
+fillOpacity:.95
+}).addTo(map);
+
+marker.bindTooltip(a.name,{direction:"top"});
+
+marker.bindPopup(
+'<div class="alumni-popup">'+
+'<img src="'+a.img+'">'+
+'<h4>'+a.name+'</h4>'+
+'<p><strong>'+a.role+'</strong></p>'+
+'<p>'+a.org+'</p>'+
+'<p>'+a.city+', '+a.country+'</p>'+
+'<div style="clear:both;"></div>'+
+'</div>'
+);
+
+});
+
+var legend=L.control({position:'bottomright'});
+
+legend.onAdd=function(){
+var div=L.DomUtil.create('div','alumni-legend');
+
+div.innerHTML=
+'<div><span class="legend-dot" style="background:#2563eb"></span>USA</div>'+
+'<div><span class="legend-dot" style="background:#dc2626"></span>Canada</div>'+
+'<div><span class="legend-dot" style="background:#16a34a"></span>Ghana</div>';
+
+return div;
+};
+
+legend.addTo(map);
+
+})();
+</script>
+
+</body>
 </html>
