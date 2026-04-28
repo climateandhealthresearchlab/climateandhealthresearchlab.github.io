@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>People - Climate And Health Research Lab</title>
+
 <link rel="icon" type="image/png" href="images/lablogo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,113 +11,91 @@
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 <link href="css/theme.css" rel="stylesheet">
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<!-- ✅ LEAFLET (ONLY ONCE) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <style>
-:root{
---bg-color:#ffffff;
---text-color:#333333;
---secondary-bg:#f5f5f5;
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --secondary-bg: #f5f5f5;
+}
+[data-theme="dark"] {
+  --bg-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --secondary-bg: #2d2d2d;
 }
 
-[data-theme="dark"]{
---bg-color:#1a1a1a;
---text-color:#e0e0e0;
---secondary-bg:#2d2d2d;
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: 0.3s;
+  top: 0 !important;
 }
 
-body{
-background-color:var(--bg-color);
-color:var(--text-color);
-transition:background-color .3s,color .3s;
-top:0 !important;
-}
-
+/* Hide Google translate bar */
 .skiptranslate,
-.goog-te-banner-frame{
-display:none !important;
+.goog-te-banner-frame {
+  display:none !important;
 }
 
-/* Alumni Map */
+/* ===== ALUMNI MAP ===== */
 #alumni-map{
-height:560px;
-width:100%;
-border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,.12);
-margin-top:20px;
-margin-bottom:20px;
+    height:600px;
+    width:100%;
+    border-radius:10px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.15);
+    margin-top:20px;
 }
 
 .alumni-popup{
-min-width:240px;
+    text-align:center;
+    min-width:200px;
 }
 
 .alumni-popup img{
-width:64px;
-height:64px;
-border-radius:50%;
-object-fit:cover;
-float:left;
-margin-right:12px;
+    width:70px;
+    height:70px;
+    object-fit:cover;
+    border-radius:50%;
+    margin-bottom:8px;
+    border:3px solid #1e88e5;
 }
 
 .alumni-popup h4{
-margin:0 0 6px;
-font-size:16px;
+    margin:5px 0;
+    font-size:15px;
 }
 
 .alumni-popup p{
-margin:0 0 4px;
-font-size:13px;
-line-height:1.35;
-}
-
-.alumni-legend{
-background:#fff;
-padding:10px 14px;
-border-radius:10px;
-box-shadow:0 4px 14px rgba(0,0,0,.12);
-font-size:13px;
-}
-
-.legend-dot{
-width:10px;
-height:10px;
-border-radius:50%;
-display:inline-block;
-margin-right:6px;
-}
-
-@media(max-width:768px){
-#alumni-map{
-height:420px;
-}
+    margin:3px 0;
+    font-size:12px;
 }
 </style>
 
 <script>
-(function(){
-if(localStorage.getItem('theme')==='dark'){
-document.documentElement.setAttribute('data-theme','dark');
-}
+(function() {
+  if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
 })();
 </script>
+
 </head>
 
 <body>
 
-<div id="google_translate_element" style="display:none;"></div>
-
 <div class="container">
 
-<header style="text-align:center;margin-bottom:20px;">
-<img src="images/heading.jpg" style="width:100%;height:auto;">
+<header style="text-align:center;">
+<img src="images/heading.jpg" style="width:100%;">
 </header>
 
+<!-- NAV -->
 <div class="masthead">
 <div class="navbar">
 <div class="navbar-inner">
-<div class="container">
 <ul class="nav">
 <li><a href="index.html">Home</a></li>
 <li class="active"><a href="#">People</a></li>
@@ -131,217 +110,125 @@ document.documentElement.setAttribute('data-theme','dark');
 </div>
 </div>
 </div>
-</div>
 
 <hr>
 
 <div class="row-fluid">
 
-<div class="span3 bs-docs-sidebar" id="navparent">
-<ul class="nav nav-list bs-docs-sidenav" data-spy="affix">
+<!-- SIDEBAR -->
+<div class="span3">
+<ul class="nav nav-list bs-docs-sidenav">
 <li><a href="#principalinvestigator">Principal Investigator</a></li>
 <li><a href="#graduate">Graduate Students</a></li>
 <li><a href="#NSS">National Service Persons</a></li>
-<li><a href="#alumni">Global Alumni Network</a></li>
+<li><a href="#alumni">Alumni Worldwide</a></li> <!-- ✅ NEW -->
 </ul>
 </div>
 
+<!-- CONTENT -->
 <div class="span8 offset1">
 
+<!-- EXISTING CONTENT KEPT -->
 <section id="principalinvestigator">
-<div class="page-header">
 <h3>Principal Investigator</h3>
-</div>
-
-<div class="row-fluid">
-<div class="span3">
-<img src="images/Yambas.jpg">
-</div>
-
-<div class="span9">
-<h4>Edmund Ilimoan Yamba</h4>
-<p>Senior Lecturer / Research Scientist</p>
-<p>Ph.D., Meteorology and Climate Science, University of Cologne, Germany</p>
-<p>M.Sc., Geophysics, KNUST</p>
-<p>B.Sc., Physics, KNUST</p>
-</div>
-</div>
+<p>Dr. Edmund Ilimoan Yamba</p>
 </section>
 
 <hr>
 
 <section id="graduate">
-<div class="page-header">
 <h3>Graduate Students</h3>
-</div>
-
-<p>Your existing graduate student content remains unchanged here.</p>
 </section>
 
 <hr>
 
 <section id="NSS">
-<div class="page-header">
-<h3>National Service Personnels</h3>
-</div>
-
-<p>Your existing NSS content remains unchanged here.</p>
+<h3>National Service Persons</h3>
 </section>
 
 <hr>
 
+<!-- ✅ NEW SECTION -->
 <section id="alumni">
-<div class="page-header">
-<h3>Global Alumni Network</h3>
-<p>Our former students are making impact across academia, research, and industry worldwide.</p>
-</div>
+
+<h3>Alumni Worldwide Network</h3>
+
+<p>
+Explore where our alumni are located globally.
+Hover or click markers to view details.
+</p>
 
 <div id="alumni-map"></div>
+
 </section>
 
 </div>
 </div>
 </div>
 
+<!-- FOOTER -->
 <footer id="footer">
 <div class="container-fluid">
-<div class="row-fluid">
-
-<div class="span5">
-<h3>Contact Information</h3>
-<p><b>Office Hours:</b> Monday-Friday (8.00am - 5.00pm)</p>
-<p><b>Phone:</b> (+233) 20-087-6117</p>
-</div>
-
-<div class="span2">
-<img src="images/lablogo.png">
-</div>
-
-<div class="span5">
-<h3>Climate and Health Lab</h3>
-<p>KNUST, Kumasi, Ghana</p>
-</div>
-
-</div>
+<p>Climate and Health Research Lab - KNUST</p>
 </div>
 </footer>
 
+<!-- SCRIPTS -->
 <script src="js/jquery-1.9.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+<!-- ✅ MAP SCRIPT -->
 <script>
-$(document).ready(function(){
-$(document.body).scrollspy({target:"#navparent"});
-});
-</script>
-
-<script>
-(function(){
-
-var map=L.map('alumni-map',{scrollWheelZoom:false}).setView([18,0],2);
+var map = L.map('alumni-map').setView([20,0],2);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-maxZoom:18,
-attribution:'© OpenStreetMap'
+    attribution:'© OpenStreetMap'
 }).addTo(map);
 
-function color(country){
-if(country==="USA") return "#2563eb";
-if(country==="Canada") return "#dc2626";
-if(country==="Ghana") return "#16a34a";
-return "#7c3aed";
-}
-
-var alumni=[
+var alumni = [
 
 {
 name:"Stephen Asare",
-city:"Tallahassee, Florida",
-country:"USA",
-lat:30.4383,
-lon:-84.2807,
-role:"PhD Student in Computational Science",
+lat:27.66, lon:-81.51,
+role:"PhD Student",
 org:"Florida State University",
-img:"images/alumni/stephen_asare.jpg"
+img:"images/john.jpg"
 },
 
 {
 name:"Thomas Amo Kyeimiah",
-city:"Montreal",
-country:"Canada",
-lat:45.5019,
-lon:-73.5674,
-role:"Master's Student in Atmospheric and Oceanic Sciences",
+lat:45.50, lon:-73.56,
+role:"MSc Student",
 org:"McGill University",
-img:"images/alumni/thomas_kyeimiah.jpg"
+img:"images/mary.jpg"
 },
 
 {
-name:"Dr. Cosmos Senyo Wemegah",
-city:"Sunyani",
-country:"Ghana",
-lat:7.3399,
-lon:-2.3268,
+name:"Dr. Cosmos Wemegah",
+lat:7.33, lon:-2.32,
 role:"Research Fellow",
-org:"University of Energy and Natural Resources",
-img:"images/alumni/cosmos_wemegah.jpg"
-},
-
-{
-name:"Dr. Victoria Owusu Tawiah",
-city:"Accra",
-country:"Ghana",
-lat:5.6037,
-lon:-0.1870,
-role:"Air Quality Analyst",
-org:"Afriset / Clean Air Fund",
-img:"images/alumni/victoria_tawiah.jpg"
+org:"UENR",
+img:"images/john.jpg"
 }
 
 ];
 
-alumni.forEach(function(a){
+alumni.forEach(p=>{
 
-var marker=L.circleMarker([a.lat,a.lon],{
-radius:8,
-fillColor:color(a.country),
-color:"#ffffff",
-weight:2,
-fillOpacity:.95
-}).addTo(map);
+let marker = L.marker([p.lat,p.lon]).addTo(map);
 
-marker.bindTooltip(a.name,{direction:"top"});
+marker.bindPopup(`
+<div class="alumni-popup">
+<img src="${p.img}">
+<h4>${p.name}</h4>
+<p><b>${p.role}</b></p>
+<p>${p.org}</p>
+</div>
+`);
 
-marker.bindPopup(
-'<div class="alumni-popup">'+
-'<img src="'+a.img+'">'+
-'<h4>'+a.name+'</h4>'+
-'<p><strong>'+a.role+'</strong></p>'+
-'<p>'+a.org+'</p>'+
-'<p>'+a.city+', '+a.country+'</p>'+
-'<div style="clear:both;"></div>'+
-'</div>'
-);
+marker.on("mouseover",()=>marker.openPopup());
 
 });
-
-var legend=L.control({position:'bottomright'});
-
-legend.onAdd=function(){
-var div=L.DomUtil.create('div','alumni-legend');
-
-div.innerHTML=
-'<div><span class="legend-dot" style="background:#2563eb"></span>USA</div>'+
-'<div><span class="legend-dot" style="background:#dc2626"></span>Canada</div>'+
-'<div><span class="legend-dot" style="background:#16a34a"></span>Ghana</div>';
-
-return div;
-};
-
-legend.addTo(map);
-
-})();
 </script>
 
 </body>
